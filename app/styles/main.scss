@@ -25,6 +25,7 @@ body {
 .wrapper {
 	width: 960px;
 	margin: 0 auto;
+
 }
 
 label {
@@ -89,11 +90,39 @@ td.actions {
 		margin-top: 10px;
 
 		a {
-			border-radius: 100px;
+			border-radius: 5px;
 		}
 
 		&:first-child { margin-top: 0; }
 	}
+}
+
+.navbar-inner {
+	@include border-top-radius(0);
+
+	.wrapper {
+		position: relative;
+		@include clearfix();
+		
+		&:before {
+			before: '';
+			content: ' ';
+		}
+
+		&:before, > .before {
+			background: inline-image('cflogo.png') no-repeat left center;
+			background-size: 25%;
+			height: image-height('cflogo.png');
+			width: image-width('cflogo.png');
+			left:0;
+			top: -76px;;
+			position: absolute;
+		}
+	}
+}
+
+.navbar .brand {
+	padding-left: 90px;
 }
 
 .form-horizontal .control-group {
@@ -114,4 +143,6 @@ h5  {
 			display: block;
 			margin: 0 auto;
 	}
+	
+	tr { cursor: pointer; }
 }
