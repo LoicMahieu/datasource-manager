@@ -110,19 +110,22 @@ td.actions {
 		}
 
 		&:before, > .before {
-			background: inline-image('cflogo.png') no-repeat left center;
-			background-size: 25%;
-			height: image-height('cflogo.png');
-			width: image-width('cflogo.png');
-			left:0;
-			top: -76px;;
-			position: absolute;
 		}
 	}
 }
 
 .navbar .brand {
-	padding-left: 90px;
+}
+
+.navbar .brand-logo {
+	background: inline-image('cflogo.png') no-repeat left center;
+	background-size: 100%;
+	height: image-height('cflogo.png') / 4;
+	width: image-width('cflogo.png') / 4;
+	display: block;
+	float: left;
+	margin-bottom: -2px;
+	margin-right: 5px;
 }
 
 .form-horizontal .control-group {

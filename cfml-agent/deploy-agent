@@ -1,0 +1,20 @@
+
+pushAgent() {
+  scp -r -p ./CFAdminAgent.cfc root@$1-igloo:/vz/private/$2/opt/jrun4/servers/$3/cfusion.ear/cfusion.war/
+  scp -r -p ./lib root@$1-igloo:/vz/private/$2/opt/jrun4/servers/$3/cfusion.ear/cfusion.war/
+}
+
+pushCF() {
+  pushAgent $1 $2 prod1
+  pushAgent $1 $2 prod2
+}
+
+pushHost() {
+  pushCF $1 110
+  pushCF $1 112
+  pushCF $1 113
+}
+
+pushHost i1
+pushHost i2
+pushHost i3

@@ -1,0 +1,49 @@
+
+<ul class="breadcrumb">
+  <li><a href="#/servers">Listing server</a> <span class="divider">/</span></li>
+  {#edit}
+    <li class="active">Edit: {server.reference}</li>
+  {:else}
+    <li class="active">New server</li>
+  {/edit}
+</ul>
+
+<div class="row-fluid">
+  <div class="span12">
+    <form action="#/servers" class="form-horizontal">
+       <div class="control-group">
+         <label class="control-label" for="inputRef">Reference</label>
+         <div class="controls">
+           <input type="text" id="inputRef" name="reference" placeholder="Server name" data-required="true" value="{server.reference}" />
+         </div>
+       </div>
+
+       <div class="control-group">
+         <label class="control-label" for="inputAddress">Address</label>
+         <div class="controls">
+           <input type="text" id="inputAddress" name="address" placeholder="192.168.23.10" data-required="true" value="{server.address}" />
+         </div>
+       </div>
+
+       <div class="control-group">
+         <label class="control-label" for="inputPassword">Password</label>
+         <div class="controls">
+           <input type="password" id="inputPassword" name="password" value="{server.password}" />
+         </div>
+       </div>
+
+       <div class="control-group">
+         <label class="control-label" for="inputDesc">Description</label>
+         <div class="controls">
+           <textarea rows="3" id="inputDesc" name="comment">{server.comment}</textarea>
+         </div>
+       </div>
+                
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="reset" class="btn btn-danger">reset</button>
+          <a href="#/servers" class="btn">Cancel</a>
+        </div>
+
+    </form>
+</div>
