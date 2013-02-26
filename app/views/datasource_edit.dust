@@ -1,0 +1,217 @@
+
+<div class="edit">
+
+  <ul class="breadcrumb">
+    <li><a href="#/datasources">Listing Data Source</a> <span class="divider">/</span></li>
+    <li class="active">
+      {#edit}
+        Edit: {datasource.name}
+      {:else}
+        New Data Source
+      {/edit}
+    </li>
+  </ul>
+            
+  <div class="row-fluid">
+    <div class="span12">
+      <form action="#/datasources" class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="inputDataSourceName">CF Data Source Name</label>
+          <div class="controls">
+            <input type="text" id="inputDataSourceName" name="name" placeholder="DBDSN Name" value="{datasource.name}" data-required="true">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputDatabase">Database</label>
+          <div class="controls">
+            <input type="text" id="inputDatabase" placeholder="Database" name="database" value="{datasource.database}" data-required="true">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputServer">Server</label>
+          <div class="controls form-inline">
+            <input type="text" id="inputServer" placeholder="win.igloo.be.local" name="host" value="{datasource.host}" data-required="true">
+            <label for="inputPort">Port</label>
+            <input type="text" class="input-mini" id="inputPort" placeholder="3306" name="port" value="{datasource.port}" data-type="alphanum">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputUsername">Username</label>
+          <div class="controls">
+            <input type="text" id="inputUsername" value="{datasource.username}" name="username">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputPassword">Password</label>
+          <div class="controls">
+            <input type="password" id="inputPassword" name="password" value="{datasource.password}">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="inputDesc">Description</label>
+          <div class="controls">
+            <textarea rows="3" id="inputDesc" name="description">{datasource.description}</textarea>
+          </div>
+        </div>
+
+        <!-- advanced-settings -->
+
+        <div class="advanced-settings form-horizontal">
+          <h5>Advanced settings</h5>
+          <div class="control-group">
+            <label class="control-label" for="inputDataSourceName">Connection String</label>
+            <div class="controls">
+              <textarea rows="3" id="inputDesc" name="args">{datasource.args}</textarea>
+            </div>
+          </div>
+          
+          <div class="control-group">
+            
+            <label class="control-label" for="inputServer">
+              Limit connections
+            </label>
+            
+            <div class="controls form-inline">
+              <input type="checkbox" name="enablemaxconnections" class="refineCheckbox"{#datasource.enablemaxconnections} checked{/datasource.enablemaxconnections} />
+              <label for="inputConnections">Restrict connections to</label>
+              <input type="number" class="input-mini" id="inputConnections" name="maxconnections" value="{datasource.maxconnections}">
+            </div>
+          </div>
+
+          <div class="control-group">
+            
+           <label class="control-label" for="inputMaintain">
+            Maintain Connections
+           </label>
+           
+           <div class="controls form-inline">
+            <input type="checkbox" name="pooling" id="inputMaintain" class="refineCheckbox"{#datasource.pooling} checked{/datasource.pooling} />
+            Maintain connections across client requests
+           </div>
+          </div>
+
+           <div class="control-group">
+            <label class="control-label" for="inputServer">Timeout(min)</label>
+            <div class="controls form-inline">
+              <input type="text" id="inputTimeout" class="input-mini" name="timeout" value="{datasource.timeout}">
+              <label for="inputPort">Interval(min)</label>
+              <input type="text" class="input-mini" id="inputTimeout" name="interval" value="{datasource.interval}">
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputMaintain">Disable Connections</label>
+            <div class="controls">
+              <input type="checkbox" name="disable" id="inputMaintain" class="refineCheckbox"{#datasource.disable} checked{/datasource.disable} />
+              Suspend all client connections.
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputLoginTimeout">Login Timeout (sec)</label>
+            <div class="controls">
+              <input type="text" id="inputLoginTimeout" placeholder="30" name="login_timeout" value="{datasource.login_timeout}">
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputMaintain">CLOB</label>
+            <div class="controls">
+              <input type="checkbox" id="inputMaintain" class="refineCheckbox" name="enable_clob"{#datasource.enable_clob} checked{/datasource.enable_clob} />
+              Enable long text retrieval (CLOB).
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputMaintain">BLOB</label>
+            <div class="controls">
+              <input type="checkbox" id="inputMaintain" class="refineCheckbox" name="enable_blob"{#datasource.enable_blob} checked{/datasource.enable_blob} />
+              Enable binary large object retrieval (BLOB).
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputLoginTimeout">Long Text Buffer (chr)</label>
+            <div class="controls">
+              <input type="number" id="inputLoginTimeout" placeholder="64000" name="buffer" value="{datasource.buffer}">
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputLoginTimeout">Blob Buffer(bytes)</label>
+            <div class="controls">
+              <input type="number" id="inputLoginTimeout" placeholder="64000" name="blob_buffer" value="{datasource.blob_buffer}">
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputMaintain">Disable Autogenerated Keys</label>
+            <div class="controls">
+              <input type="checkbox" id="inputMaintain" class="refineCheckbox" name="disable_autogenkeys"{#datasource.disable_autogenkeys} checked{/datasource.disable_autogenkeys} />
+              Disable retrieval of autogenerated keys
+            </div>
+          </div>
+              
+          <div class="control-group">
+            <label class="control-label" for="inputMaintain">Allowed SQL</label>
+            <div class="controls">
+              <table class="table">
+                <tr>
+                  <td><input type="checkbox" name="select" value="true"{#datasource.select} checked{/datasource.select} />SELECT</td>
+                  <td><input type="checkbox" name="create" value="true"{#datasource.create} checked{/datasource.create} />CREATE</td>
+                  <td><input type="checkbox" name="grant" value="true"{#datasource.grant} checked{/datasource.grant} />GRANT</td>
+                </tr>
+                
+                <tr>
+                  <td><input type="checkbox" name="insert" value="true"{#datasource.insert} checked{/datasource.insert} />INSERT</td>
+                  <td><input type="checkbox" name="drop" value="true"{#datasource.drop} checked{/datasource.drop} />DROP</td>
+                  <td><input type="checkbox" name="revoke" value="true"{#datasource.revoke} checked{/datasource.revoke} />REVOKE</td>
+                </tr>
+                
+                <tr>
+                  <td><input type="checkbox" name="update" value="true"{#datasource.update} checked{/datasource.update} />UPDATE</td>
+                  <td><input type="checkbox" name="alter" value="true"{#datasource.alter} checked{/datasource.alter} />ALTER</td>
+                  <td><input type="checkbox" name="storedproc" value="true"{#datasource.storedproc} checked{/datasource.storedproc} />Stored Procedures</td>
+                </tr>
+                
+                <tr>
+                  <td><input type="checkbox" name="delete" value="true"{#datasource.delete} checked{/datasource.delete} />DELETE</td>
+                  <td>&nbsp;</td>
+                  <td>&nbsp;</td>
+                </tr>
+                
+              </table>
+            </div>
+          </div>
+          
+          <div class="advanced-settings form-horizontal">
+            <div class="control-group">
+              <label class="control-label" for="inputDataSourceName">Connection String</label>
+              <div class="controls">
+                <textarea rows="3" id="inputDesc" name="validationQuery">{datasource.validationQuery}</textarea>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end advanced -->
+
+        <div class="controls form-inline">
+          <button type="submit" class="btn btn-success">
+            {#edit}
+              <i class="icon-edit icon-white"></i>
+              Confirm change
+            {:else}
+              <i class="icon-plus-sign icon-white"></i>
+              Add new Data Source
+            {/edit}
+          </button>
+          <button type="reset" class="btn btn-danger">reset</button>
+          <button class="btn btn-advanced">Advanced settings</button>
+        </div>
+
+      </form>
+    </div><!-- end 6 -->
+
+  </div><!-- end row-fluid -->
+
+</div>

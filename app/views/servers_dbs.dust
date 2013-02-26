@@ -1,0 +1,25 @@
+
+<table class="table">
+  <tbody>
+    {#dbs}
+        <tr>
+          <td>{name}</td>
+          <td>
+            <button data-addlocal="{name}" class="btn btn-mini">
+              <i class="icon-plus-sign"></i> Save to local
+            </button>
+
+            <button data-delete="{name}" class="btn btn-danger btn-mini">
+              <i class="icon-remove"></i>
+            </button>
+          </td>
+        </tr>
+    {:else}
+      <tr>
+        <td>
+          <div class="alert alert-info">No dbs</div>
+        </td>
+      </tr>
+    {/dbs}
+  </tbody>
+</table>
