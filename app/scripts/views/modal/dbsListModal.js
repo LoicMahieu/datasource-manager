@@ -50,7 +50,14 @@ define([
 
     renderDBs: function() {
       var modal = this;
-      dbsTemplate.render(this.model.toJSON(), function(err, output) {
+
+      var data = this.model.toJSON();
+
+      data.dbs = _.sortBy(data.dbs, function(db) {
+        return db.name;
+      });
+
+      dbsTemplate.render(data, function(err, output) {
         modal.$el.find('.modal-body').html(output);
       });
     },
