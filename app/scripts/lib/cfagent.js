@@ -66,6 +66,12 @@ define([
     }, success, error);
   };
 
+  CFAgent.prototype.verifyDsn = function(dbName, success, error) {
+    return this._callAPI('verifyDsn', {
+      dbdsn: dbName
+    }, success, error);
+  }
+
   CFAgent.prototype._callAPI = function(method, params, success, error) {
     return $.ajax({
       dataType: 'jsonp',

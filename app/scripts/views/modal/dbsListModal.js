@@ -13,7 +13,9 @@ define([
   var Modal = parent.extend({
     events: {
       'click [data-addlocal]': 'addLocal',
-      'click [data-delete]': 'delete'
+      'click [data-delete]': 'delete',
+      'click [data-valid]': 'valid',
+      'click .validAll': 'validAll'
     },
 
     initialize: function(server) {
@@ -129,6 +131,45 @@ define([
           alert('Unknown error');
         }
       });
+    },
+
+    valid: function(e) {
+      e.preventDefault();
+
+      var $button = $(e.currentTarget),
+          name = $button.attr('data-valid'),
+          successClass = 'btn-success',
+          errorClass = 'btn-danger',
+          normalClass = 'btn-info';
+
+      if( $button.is(':disabled') ) {
+        return;
+      }
+
+      $button
+        .removeClass(successClass)
+        .removeClass(errorClass)
+        .addClass(normalClass)
+        .attr('disabled', 'disabled');
+
+      this.cfagent.verifyDsn(name, function(res) {
+        if( res ) {
+          $button
+            .removeClass(normalClass)
+            .removeAttr('disabled')
+            .addClass(successClass);
+        } else {
+          $button
+            .removeClass(normalClass)
+            .removeAttr('disabled')
+            .addClass(errorClass);
+        }
+      });
+    },
+
+    validAll: function(e) {
+      e.preventDefault();
+      this.$el.find('[data-valid]').trigger('click');
     }
   });
 

