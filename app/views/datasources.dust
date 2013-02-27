@@ -18,9 +18,9 @@
         <a href="#/datasources/{id}" class="btn btn-mini">
           <i class="icon-edit"></i>
         </a>
-        <a href="#/datasources/valid/{id}" class="btn btn-info btn-mini">
+        <!--<a href="#/datasources/valid/{id}" class="btn btn-info btn-mini">
           <i class="icon-ok"></i>
-        </a>
+        </a>-->
         <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
           <i class="icon-trash"></i>
         </a>
