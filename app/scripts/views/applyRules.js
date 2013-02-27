@@ -15,7 +15,7 @@ define([
 
     initialize: function() {
       this.on('show', function() {
-        if( true || confirm('Are you sure?') ) {
+        if( confirm('Are you sure?') ) {
           this.applyRules();
         } else {
           ns.router.navigate('/');
@@ -46,8 +46,6 @@ define([
             .append($label)
             .append($('<span />').text(db.get('name')))
             .appendTo($list);
-
-            console.log(async);
 
           var doCall = function(next) {
             var call = cfagent.setDatasource(db);
