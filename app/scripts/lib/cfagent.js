@@ -3,8 +3,8 @@ define([
 ], function($) {
 
   var CFAgent = function(address, password) {
-    this.address = address;
-    this.password = password;
+    this.address = $.trim(address);
+    this.password = $.trim(password);
   };
 
   CFAgent.createFromServer = function(server) {
