@@ -15,7 +15,8 @@ define([
       'click [data-addlocal]': 'addLocal',
       'click [data-delete]': 'delete',
       'click [data-valid]': 'valid',
-      'click .validAll': 'validAll'
+      'click .validAll': 'validAll',
+      'click .btn.ok': 'clickOK'
     },
 
     initialize: function(server) {
@@ -29,7 +30,7 @@ define([
         title: server.get('reference'),
         content: 'Loading...',
         animate: true,
-        allowOk: false
+        allowCancel: false
       });
 
       this.fetch();
@@ -170,6 +171,11 @@ define([
     validAll: function(e) {
       e.preventDefault();
       this.$el.find('[data-valid]').trigger('click');
+    },
+
+    clickOK: function(e) {
+      e.preventDefault();
+      this.close();
     }
   });
 
