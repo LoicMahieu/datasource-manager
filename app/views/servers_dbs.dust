@@ -1,16 +1,22 @@
 
+<button class="validAll btn btn-info">Verify all</button>
+
 <table class="table">
   <tbody>
     {#dbs}
         <tr>
           <td>{name}</td>
           <td>
-            <button data-addlocal="{name}" class="btn btn-mini">
+            <button data-addlocal="{name}" class="btn btn-mini" title="Add datasource to local storage">
               <i class="icon-plus-sign"></i> Save to local
             </button>
 
-            <button data-delete="{name}" class="btn btn-danger btn-mini">
+            <button data-delete="{name}" class="btn btn-danger btn-mini" title="Delete datasource">
               <i class="icon-remove"></i>
+            </button>
+
+            <button data-valid="{name}" class="btn btn-info btn-mini" title="Verify datasource">
+              <i class="icon-ok"></i>
             </button>
           </td>
         </tr>
