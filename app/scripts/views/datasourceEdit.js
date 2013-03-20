@@ -86,7 +86,7 @@ define([
         revoke: data.revoke == 'true',
         select: data.select == 'true',
 
-        validationquery: data.validationquery
+        validationQuery: data.validationQuery
       });
       datasources.add(this.model).sort();
 

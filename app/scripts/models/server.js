@@ -1,15 +1,29 @@
 define([
   'backbone',
-  'backbone.localStorage',
-  './datasourcesCollection'
-], function(Backbone, BackboneLocalStorage, datasources) {
+  './datasourcesCollection',
+  '../namespace'
+], function(Backbone, datasources, ns) {
 
   var constructor = Backbone.Model;
 
   var Model = constructor.extend({
-    localStorage: new BackboneLocalStorage('servers'),
+    
+    urlRoot: ns.apiPath + '/servers',
+
     defaults: {
       datasourceIds: []
+    },
+
+    initialize: function () {
+      constructor.prototype.initialize.apply(this, arguments);
+      
+      var self = this;
+
+      datasources.on('destroy', function(model) {
+        if( model.id ) {
+          self.removeDatasource(model.id);
+        }
+      });
     },
 
     getDatasources: function() {
@@ -32,12 +46,15 @@ define([
 
     addDatasource: function(datasource) {
       var datasourceId = datasource.get ? datasource.get('id') : datasource;
-      this.attributes.datasourceIds.push(datasourceId);
+      if( !this.hasDatasource(datasourceId) ) {
+        this.attributes.datasourceIds.push(datasourceId);
+      }
       return this;
     },
 
     removeDatasource: function(datasource) {
       var datasourceId = datasource.get ? datasource.get('id') : datasource;
+      console.log('model server - removedatasource : ' + datasourceId);
       this.attributes.datasourceIds = _.without(this.attributes.datasourceIds, datasourceId);
       return this;
     }

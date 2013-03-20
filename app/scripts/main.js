@@ -70,6 +70,9 @@ require([
   './models/server',
   './models/datasource',
   './models/link'
+
+  //if you to import the export_datasource uncomment this
+  //,'./import'
 ], function(
   Backbone, 
   $, 

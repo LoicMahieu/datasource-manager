@@ -1,12 +1,10 @@
 define([
-  'backbone.relational',
-  'backbone.localStorage'
-], function(Backbone, BackboneLocalStorage) {
+  'backbone'
+], function(Backbone) {
 
-  var constructor = Backbone.RelationalModel;
+  var constructor = Backbone.Model;
 
   var Model = constructor.extend({
-    localStorage: new BackboneLocalStorage('servers'),
     relations: [{
       type: Backbone.HasMany,
       key: 'datasources',
