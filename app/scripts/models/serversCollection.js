@@ -1,14 +1,15 @@
 define([
-  'backbone.relational',
-  'backbone.localStorage',
-  './server'
-], function(Backbone, BackboneLocalStorage, Server) {
+  'backbone',
+  './server',
+  '../namespace'
+], function(Backbone, Server, ns) {
 
   var constructor = Backbone.Collection;
 
   var Collection = constructor.extend({
     model: Server,
-    localStorage: new BackboneLocalStorage('servers'),
+    urlRoot: ns.apiPath + '/servers',
+    url: ns.apiPath + '/servers',
     comparator: function(server) {
       return server.get("reference");
     }

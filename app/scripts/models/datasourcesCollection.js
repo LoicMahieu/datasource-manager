@@ -1,14 +1,15 @@
 define([
   'backbone',
-  'backbone.localStorage',
-  './datasource'
-], function(Backbone, BackboneLocalStorage, Datasource) {
+  './datasource',
+  '../namespace'
+], function(Backbone, Datasource, ns) {
 
   var constructor = Backbone.Collection;
 
   var Collection = constructor.extend({
     model: Datasource,
-    localStorage: new BackboneLocalStorage('datasources'),
+    urlRoot: ns.apiPath + '/datasources',
+    url: ns.apiPath + '/datasources',
     comparator: function(server) {
       return server.get("name");
     }

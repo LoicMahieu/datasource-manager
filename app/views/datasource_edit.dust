@@ -186,7 +186,7 @@
           
           <div class="advanced-settings form-horizontal">
             <div class="control-group">
-              <label class="control-label" for="inputDataSourceName">Connection String</label>
+              <label class="control-label" for="inputDataSourceName">Validation String</label>
               <div class="controls">
                 <textarea rows="3" id="inputDesc" name="validationQuery">{datasource.validationQuery}</textarea>
               </div>

@@ -1,9 +1,10 @@
 define([
+  'underscore',
   './lib/view',
   'rdust!../../views/links',
   '../models/datasourcesCollection',
   '../models/serversCollection'
-], function(View, template, datasources, servers) {
+], function(_, View, template, datasources, servers) {
 
   var constructor = View, proto = View.prototype;
 
@@ -26,13 +27,21 @@ define([
     },
 
     save: function() {
+      var saves = [];
+
       this.$el.find('input[type=checkbox]').each(function() {
         var $input = $(this),
             checked = $input.is(':checked'),
             server = $input.data('server'),
             db = $input.data('datasource');
 
-        server[checked ? 'addDatasource' : 'removeDatasource'](db).save();
+        server[checked ? 'addDatasource' : 'removeDatasource'](db);
+
+        saves.push(server);
+      });
+
+      _.uniq(saves).forEach(function(server) {
+        server.save();
       });
     },
 

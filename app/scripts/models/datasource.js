@@ -1,12 +1,12 @@
 define([
   'backbone',
-  'backbone.localStorage'
-], function(Backbone, BackboneLocalStorage) {
+  '../namespace'
+], function(Backbone, ns) {
 
   var constructor = Backbone.Model;
 
   var Model = constructor.extend({
-    localStorage: new BackboneLocalStorage('datasources'),
+    urlRoot: ns.apiPath + '/datasources',
     defaults: {
       port: 3306,
       pooling: true,
