@@ -6,7 +6,8 @@ define([
   'rdust!../../../views/servers_dbs',
   '../../lib/cfagent',
   '../../models/datasourcesCollection'
-], function($, _, Backbone, BackboneBootstrapModal, dbsTemplate, CFAgent, datasources) {
+], function ($, _, Backbone, BackboneBootstrapModal, dbsTemplate, CFAgent, datasources) {
+  'use strict';
 
   var parent = Backbone.BootstrapModal, parentProto = parent.prototype;
   
@@ -19,7 +20,7 @@ define([
       'click .btn.ok': 'clickOK'
     },
 
-    initialize: function(server) {
+    initialize: function (server) {
       this.server = server;
       this.cfagent = CFAgent.createFromServer(server);
 
@@ -36,36 +37,36 @@ define([
       this.fetch();
     },
 
-    fetch: function() {
+    fetch: function () {
       var modal = this,
           model = this.model;
-      this.cfagent.getDatasources(function(dbs) {
+      this.cfagent.getDatasources(function (dbs) {
         model.set({
           by_name: dbs,
-          dbs: $.map(dbs, function(db, dbName) {
+          dbs: $.map(dbs, function (db) {
             return db;
           })
         });
-      }, function() {
+      }, function () {
         modal.$el.find('.modal-body').html('Loading error!');
       });
     },
 
-    renderDBs: function() {
+    renderDBs: function () {
       var modal = this;
 
       var data = this.model.toJSON();
 
-      data.dbs = _.sortBy(data.dbs, function(db) {
+      data.dbs = _.sortBy(data.dbs, function (db) {
         return db.name;
       });
 
-      dbsTemplate.render(data, function(err, output) {
+      dbsTemplate.render(data, function (err, output) {
         modal.$el.find('.modal-body').html(output);
       });
     },
 
-    addLocal: function(e) {
+    addLocal: function (e) {
       e.preventDefault();
 
       var name = $(e.currentTarget).attr('data-addlocal');
@@ -115,26 +116,26 @@ define([
       datasource.save();
     },
 
-    delete: function(e) {
+    delete: function (e) {
       e.preventDefault();
 
       var $button = $(e.currentTarget),
           name = $button.attr('data-delete');
 
-      if( !confirm('Are you sure that you want to delete this datasource ?') ) {
+      if (!window.confirm('Are you sure that you want to delete this datasource ?')) {
         return;
       }
 
-      this.cfagent.deleteDatasource(name, function(res) {
-        if( res ) {
+      this.cfagent.deleteDatasource(name, function (res) {
+        if (res) {
           $button.parents('tr').remove();
         } else {
-          alert('Unknown error');
+          window.alert('Unknown error');
         }
       });
     },
 
-    valid: function(e) {
+    valid: function (e) {
       e.preventDefault();
 
       var $button = $(e.currentTarget),
@@ -143,7 +144,7 @@ define([
           errorClass = 'btn-danger',
           normalClass = 'btn-info';
 
-      if( $button.is(':disabled') ) {
+      if ($button.is(':disabled')) {
         return;
       }
 
@@ -153,8 +154,8 @@ define([
         .addClass(normalClass)
         .attr('disabled', 'disabled');
 
-      this.cfagent.verifyDsn(name, function(res) {
-        if( res ) {
+      this.cfagent.verifyDsn(name, function (res) {
+        if (res) {
           $button
             .removeClass(normalClass)
             .removeAttr('disabled')
@@ -168,12 +169,12 @@ define([
       });
     },
 
-    validAll: function(e) {
+    validAll: function (e) {
       e.preventDefault();
       this.$el.find('[data-valid]').trigger('click');
     },
 
-    clickOK: function(e) {
+    clickOK: function (e) {
       e.preventDefault();
       this.close();
     }

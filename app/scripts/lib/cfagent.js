@@ -1,25 +1,26 @@
 define([
   'jquery'
-], function($) {
+], function ($) {
+  'use strict';
 
-  var CFAgent = function(address, password) {
+  var CFAgent = function (address, password) {
     this.address = $.trim(address);
     this.password = $.trim(password);
   };
 
-  CFAgent.createFromServer = function(server) {
+  CFAgent.createFromServer = function (server) {
     return new CFAgent(server.get('address'), server.get('password'));
   };
 
-  CFAgent.prototype.getDatasources = function(success, error) {
+  CFAgent.prototype.getDatasources = function (success, error) {
     return this._callAPI('getDatasources', {}, success, error);
   };
 
-  CFAgent.prototype.setMySQL5 = function(db, success, error) {
+  CFAgent.prototype.setMySQL5 = function (db, success, error) {
     return this._callAPI('setMySQL5', db, success, error);
   };
 
-  CFAgent.prototype.setDatasource = function(db, success, error) {
+  CFAgent.prototype.setDatasource = function (db, success, error) {
     var data = {
       name: db.get('name'),
       database: db.get('database'),
@@ -53,26 +54,26 @@ define([
       validationquery: db.get('validationQuery')
     };
 
-    if( db.get('maxconnections') ) {
+    if (db.get('maxconnections')) {
       data.maxconnections = db.get('maxconnections');
     }
 
     return this._callAPI('setMySQL5', data, success, error);
   };
 
-  CFAgent.prototype.deleteDatasource = function(dbName, success, error) {
+  CFAgent.prototype.deleteDatasource = function (dbName, success, error) {
     return this._callAPI('deleteDatasource', {
       dsnname: dbName
     }, success, error);
   };
 
-  CFAgent.prototype.verifyDsn = function(dbName, success, error) {
+  CFAgent.prototype.verifyDsn = function (dbName, success, error) {
     return this._callAPI('verifyDsn', {
       dbdsn: dbName
     }, success, error);
-  }
+  };
 
-  CFAgent.prototype._callAPI = function(method, params, success, error) {
+  CFAgent.prototype._callAPI = function (method, params, success, error) {
     return $.ajax({
       dataType: 'jsonp',
       url: this.address,

@@ -7,12 +7,12 @@ define([
   '../models/serversCollection',
   './modal/deleteModal',
   './modal/dbsListModal'
-], function(_, $, Backbone, View, template, servers, DeleteModal, DBSListModal) {
+], function (_, $, Backbone, View, template, servers, DeleteModal, DBSListModal) {
+  'use strict';
 
   var constructor = View;
-  var proto = View.prototype;
 
-  var View = constructor.extend({
+  var ServerList = constructor.extend({
     template: template,
 
     events: {
@@ -20,17 +20,17 @@ define([
       'click [data-listdbs-id]': 'listServerDBs'
     },
 
-    initialize: function() {
+    initialize: function () {
       servers.on('all', _.bind(this.render, this));
       servers.fetch();
     },
 
-    render: function() {
+    render: function () {
       var view = this;
       var data = { servers: servers.toJSON() };
 
-      this.template.render(data, function(err, output) {
-        var $el = $(view.el)
+      this.template.render(data, function (err, output) {
+        var $el = $(view.el);
         $el.html(output);
 
         view.rendered = true;
@@ -39,13 +39,12 @@ define([
       return this;
     },
 
-    deleteServer: function(e) {
+    deleteServer: function (e) {
       e.preventDefault();
 
-      var view = this;
       var server = servers.get($(e.currentTarget).attr('data-delete-id'));
 
-      if( !server ) {
+      if (!server) {
         return;
       }
 
@@ -53,20 +52,19 @@ define([
         title: server.get('reference')
       });
 
-      modal.on('ok', function() {
-          server.destroy();
-        });
+      modal.on('ok', function () {
+        server.destroy();
+      });
 
       modal.open();
     },
 
-    listServerDBs: function(e) {
+    listServerDBs: function (e) {
       e.preventDefault();
 
-      var view = this;
       var server = servers.get($(e.currentTarget).attr('data-listdbs-id'));
 
-      if( !server ) {
+      if (!server) {
         return;
       }
 
@@ -75,6 +73,6 @@ define([
     }
   });
 
-  return View;
+  return ServerList;
 
 });

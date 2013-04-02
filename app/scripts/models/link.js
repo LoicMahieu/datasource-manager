@@ -1,6 +1,7 @@
 define([
   'backbone'
-], function(Backbone) {
+], function (Backbone) {
+  'use strict';
 
   var constructor = Backbone.Model;
 

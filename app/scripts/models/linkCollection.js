@@ -1,7 +1,8 @@
 define([
   'backbone.relational',
   './link'
-], function(Backbone, Link) {
+], function (Backbone, Link) {
+  'use strict';
 
   var constructor = Backbone.Collection;
 
@@ -11,6 +12,6 @@ define([
 
   Collection.constructor = Collection;
 
-  return new Collection;
+  return new Collection();
 
 });

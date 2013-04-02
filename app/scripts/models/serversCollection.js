@@ -2,7 +2,8 @@ define([
   'backbone',
   './server',
   '../namespace'
-], function(Backbone, Server, ns) {
+], function (Backbone, Server, ns) {
+  'use strict';
 
   var constructor = Backbone.Collection;
 
@@ -10,13 +11,13 @@ define([
     model: Server,
     urlRoot: ns.apiPath + '/servers',
     url: ns.apiPath + '/servers',
-    comparator: function(server) {
-      return server.get("reference");
+    comparator: function (server) {
+      return server.get('reference');
     }
   });
 
   Collection.constructor = Collection;
 
-  return new Collection;
+  return new Collection();
 
 });

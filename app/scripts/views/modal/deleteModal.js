@@ -1,9 +1,12 @@
+/*jshint multistr: true*/
+
 define([
   'jquery',
   'underscore',
   'backbone',
   'backbone.bootstrapModal'
-], function($, _, Backbone, BackboneBootstrapModal) {
+], function ($, _, Backbone) {
+  'use strict';
 
   var _interpolateBackup = _.templateSettings;
 
@@ -36,7 +39,7 @@ define([
   _.templateSettings = _interpolateBackup;
   
   var Modal = Backbone.BootstrapModal.extend({
-    initialize: function(options) {
+    initialize: function (options) {
       Backbone.BootstrapModal.prototype.initialize.call(this, $.extend({
         template: modalTemplate,
         content: 'Are you sure you want to delete this one ?',

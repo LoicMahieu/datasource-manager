@@ -1,7 +1,8 @@
-define([], function() {
+define([], function () {
+  'use strict';
 
   return {
-  	apiPath: '/api/v1',
+    apiPath: '/api/v1',
 
     views: {},
     models: {}

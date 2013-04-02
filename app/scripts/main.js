@@ -1,53 +1,53 @@
 require.config({
   shim: {
     underscore: {
-      exports: "_"
+      exports: '_'
     },
     backbone: {
-      deps: ["underscore", "jquery"],
-      exports: "Backbone"
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
     },
-    "backbone.localStorage": {
-      deps: ["backbone"],
-      exports: "Backbone.LocalStorage"
+    'backbone.localStorage': {
+      deps: ['backbone'],
+      exports: 'Backbone'
     },
-    "backbone.bootstrapModal": {
-      deps: ["backbone"],
-      exports: "Backbone.BootstrapModal"
+    'backbone.bootstrapModal': {
+      deps: ['backbone'],
+      exports: 'Backbone'
     },
-    "backbone.relational": {
-      deps: ["backbone"],
-      exports: "Backbone"
+    'backbone.relational': {
+      deps: ['backbone'],
+      exports: 'Backbone'
     },
     bootstrap: {
-      deps: ["jquery"],
-      exports: "$"
+      deps: ['jquery'],
+      exports: '$'
     },
     dust: {
-      exports: "dust"
+      exports: 'dust'
     },
     parsley: {
-      deps: ["jquery"],
-      exports: "$"
+      deps: ['jquery'],
+      exports: '$'
     }
   },
 
   paths: {
-    "text": 'vendor/requirejs/text',
+    'text': 'vendor/requirejs/text',
 
-    "async": 'vendor/async',
+    'async': 'vendor/async',
 
-    "jquery": 'vendor/jquery.min',
-    "parsley": 'vendor/parsley.full',
+    'jquery': 'vendor/jquery.min',
+    'parsley': 'vendor/parsley.full',
 
-    "bootstrap": 'vendor/bootstrap/bootstrap.min',
+    'bootstrap': 'vendor/bootstrap/bootstrap.min',
 
-    "dust": 'vendor/dust-full-0.6.0',
-    "rdust": 'vendor/require-dust',
+    'dust': 'vendor/dust-full-0.6.0',
+    'rdust': 'vendor/require-dust',
 
-    "underscore": '../components/underscore/underscore',
-    "backbone": '../components/backbone/backbone',
-    "backbone.localStorage": 'vendor/backbone.localStorage',
+    'underscore': '../components/underscore/underscore',
+    'backbone': '../components/backbone/backbone',
+    'backbone.localStorage': 'vendor/backbone.localStorage',
     'backbone.bootstrapModal': 'vendor/backbone.bootstrap-modal',
     'backbone.relational': 'vendor/backbone.relational'
   }
@@ -73,24 +73,25 @@ require([
 
   //if you to import the export_datasource uncomment this
   //,'./import'
-], function(
-  Backbone, 
-  $, 
+], function (
+  Backbone,
+  $,
 
   ns,
-  Router, 
+  Router,
 
-  DatasourceListView, 
-  DatasourceEditView, 
-  ServerList, 
-  ServerEdit, 
+  DatasourceListView,
+  DatasourceEditView,
+  ServerList,
+  ServerEdit,
   Links,
-  ApplyRules, 
+  ApplyRules,
 
   ServerModel,
   DatasourceModel,
   LinkModel
 ) {
+  'use strict';
 
   ns.models.Server = ServerModel;
   ns.models.Datasource = DatasourceModel;
@@ -107,7 +108,7 @@ require([
   ns.views.links = new Links();
   ns.views.applyRules = new ApplyRules();
 
-  $(function() {
+  $(function () {
 
     Backbone.history.start();
 

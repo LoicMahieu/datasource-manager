@@ -1,7 +1,8 @@
 define([
   'backbone',
   '../namespace'
-], function(Backbone, ns) {
+], function (Backbone, ns) {
+  'use strict';
 
   var constructor = Backbone.Model;
 

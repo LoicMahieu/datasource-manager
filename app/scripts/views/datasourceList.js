@@ -1,15 +1,16 @@
 define([
   'underscore',
+  'jquery',
   './lib/view',
   'rdust!../../views/datasources',
   '../models/datasourcesCollection',
   './modal/deleteModal'
-], function(_, View, template, datasources, DeleteModal) {
+], function (_, $, View, template, datasources, DeleteModal) {
+  'use strict';
 
   var constructor = View;
-  var proto = View.prototype;
 
-  var View = constructor.extend({
+  var DatasourceList = constructor.extend({
     template: template,
 
     events: {
@@ -17,17 +18,17 @@ define([
     },
 
 
-    initialize: function() {
+    initialize: function () {
       datasources.on('all', _.bind(this.render, this));
       datasources.fetch();
     },
 
-    render: function() {
+    render: function () {
       var view = this;
       var data = { datasources: datasources.toJSON() };
 
-      this.template.render(data, function(err, output) {
-        var $el = $(view.el)
+      this.template.render(data, function (err, output) {
+        var $el = $(view.el);
         $el.html(output);
         view.rendered = true;
       });
@@ -35,26 +36,25 @@ define([
       return this;
     },
 
-    deleteDatasource: function(e) {
+    deleteDatasource: function (e) {
       e.preventDefault();
 
-      var view = this;
       var model = datasources.get($(e.currentTarget).attr('data-delete-id'));
 
-      if( !model ) {
+      if (!model) {
         return;
       }
 
-      var modal = new DeleteModal({
-          title: model.get('name')
-        })
-        .on('ok', function() {
-          model.destroy();
-        })
-        .open();
+      new DeleteModal({
+        title: model.get('name')
+      })
+      .on('ok', function () {
+        model.destroy();
+      })
+      .open();
     }
   });
 
-  return View;
+  return DatasourceList;
 
 });

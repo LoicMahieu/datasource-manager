@@ -4,18 +4,19 @@ define([
   './lib/view',
   'rdust!../../views/server_edit',
   '../models/serversCollection'
-], function($, ns, View, template, servers) {
+], function ($, ns, View, template, servers) {
+  'use strict';
 
   var constructor = View;
 
-  var View = constructor.extend({
+  var ServerEdit = constructor.extend({
     template: template,
 
     events: {
       'submit form': 'submitForm'
     },
 
-    render: function(id) {
+    render: function (id) {
       var view = this;
       var server = this.model = servers.get(id);
       var data = {
@@ -23,8 +24,8 @@ define([
         edit: typeof server !== 'undefined'
       };
 
-      this.template.render(data, function(err, output) {
-        var $el = $(view.el)
+      this.template.render(data, function (err, output) {
+        var $el = $(view.el);
         $el.html(output);
 
         $el.find('form').parsley();
@@ -35,12 +36,12 @@ define([
       return this;
     },
 
-    submitForm: function(e) {
+    submitForm: function (e) {
       e.preventDefault();
 
       var $form = $(e.currentTarget);
 
-      if( !this.model ) {
+      if (!this.model) {
         this.model = new servers.model();
         servers.add(this.model);
       }
@@ -58,6 +59,6 @@ define([
     }
   });
 
-  return View;
+  return ServerEdit;
 
 });
