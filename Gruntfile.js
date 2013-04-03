@@ -70,9 +70,12 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
+          keepalive: true,
           middleware: function (connect) {
             return require('./api/routes')(connect).concat([
-              mountFolder(connect, 'dist')
+              mountFolder(connect, '.tmp'),
+              mountFolder(connect, 'app')
+              //mountFolder(connect, 'dist')
             ]);
           }
         }
