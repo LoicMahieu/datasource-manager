@@ -246,7 +246,7 @@ module.exports = function (grunt) {
     'clean:server',
     'coffee:dist',
     'compass:dist',
-    'connect'
+    'connect:dist'
   ]);
 
   grunt.registerTask('server', function (target) {
