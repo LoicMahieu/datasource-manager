@@ -242,6 +242,13 @@ module.exports = function (grunt) {
   // remove when mincss task is renamed
   grunt.renameTask('mincss', 'cssmin');
 
+  grunt.registerTask('dist-server', [
+    'clean:server',
+    'coffee:dist',
+    'compass:dist',
+    'connect'
+  ]);
+
   grunt.registerTask('server', function (target) {
     if (target === 'dist') {
       return grunt.task.run(['open', 'connect:dist:keepalive']);
