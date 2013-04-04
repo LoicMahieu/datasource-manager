@@ -63,6 +63,7 @@ define([
 
       dbsTemplate.render(data, function (err, output) {
         modal.$el.find('.modal-body').html(output);
+        modal._checkLocal();
       });
     },
 
@@ -114,6 +115,8 @@ define([
       });
       datasources.add(datasource);
       datasource.save();
+      
+      this._checkLocal();
     },
 
     delete: function (e) {
@@ -177,6 +180,19 @@ define([
     clickOK: function (e) {
       e.preventDefault();
       this.close();
+    },
+
+    _checkLocal: function () {
+      var dbs = this.model.get('by_name');
+
+      this.$el.find('[data-addlocal]').each(function () {
+        var $button = $(this),
+            name = $button.attr('data-addlocal'),
+            db = dbs[name],
+            exists = datasources.where({ name: db.name }).length;
+
+        $button.prop('disabled', exists);
+      });
     }
   });
 
