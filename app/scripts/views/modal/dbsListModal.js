@@ -119,9 +119,9 @@ define([
         timeout: db.timeout,
 
         disable_autogenkeys: db.disable_autogenkeys,
-        validationquery: db.validationquery
+        validationQuery: db.validationquery
       });
-      datasources.add(datasource);
+      datasources.add(datasource).sort();
       datasource.save();
       
       this._checkLocal();
