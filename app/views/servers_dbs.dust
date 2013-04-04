@@ -1,4 +1,11 @@
 
+<p class="text-warning">
+  <b>Datasources not found:</b> 
+  {#notFound}
+    {.},
+  {/notFound}
+</p>
+
 <button class="validAll btn btn-info">Verify all</button>
 
 <table class="table">

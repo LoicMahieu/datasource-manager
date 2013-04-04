@@ -57,6 +57,14 @@ define([
 
       var data = this.model.toJSON();
 
+      data.notFound = [];
+      datasources.each(function (db) {
+        if (!_.where(data.dbs, { name: db.get('name') }).length) {
+          data.notFound.push(db.get('name'));
+        }
+      });
+      console.log(data.notFound);
+
       data.dbs = _.sortBy(data.dbs, function (db) {
         return db.name;
       });
