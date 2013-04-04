@@ -7,18 +7,19 @@ define([
 
   var Router = Backbone.Router.extend({
     routes: {
-      ''                       : 'home',
+      ''                         : 'home',
       
-      'datasources'            : 'datasources',
-      'datasources/new'        : 'datasourceEdit',
-      'datasources/:id'        : 'datasourceEdit',
+      'datasources'              : 'datasources',
+      'datasources/new'          : 'datasourceEdit',
+      'datasources/:id'          : 'datasourceEdit',
+      'datasources/:id/:action'  : 'datasourceEdit',
 
-      'servers'                : 'servers',
-      'servers/new'            : 'serverEdit',
-      'servers/:id'            : 'serverEdit',
+      'servers'                  : 'servers',
+      'servers/new'              : 'serverEdit',
+      'servers/:id'              : 'serverEdit',
       
-      'links'                  : 'links',
-      'apply'                  : 'applyRules'
+      'links'                    : 'links',
+      'apply'                    : 'applyRules'
     },
 
     _showView: function (view, renderArgs) {

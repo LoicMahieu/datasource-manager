@@ -18,13 +18,19 @@ define([
       'click .btn-advanced': 'showAdvanced'
     },
 
-    render: function (id) {
+    render: function (id, action) {
       var view = this;
       var datasource = this.model = datasources.get(id) || new datasources.model();
       var data = {
         datasource: (datasource ? datasource.toJSON() : {}),
         edit: typeof datasource !== 'undefined'
       };
+
+      if (action === 'duplicate') {
+        data.edit = false;
+        data.datasource.name = data.datasource.name + '_copy';
+        datasource = this.model = new datasources.model();
+      }
 
       this.template.render(data, function (err, output) {
         var $el = $(view.el);
