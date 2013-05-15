@@ -42,7 +42,7 @@ define([
             error.level = 'danger';
           }
 
-          error.message = valid.map(function(err) {
+          error.message = valid.map(function (err) {
             return err.message;
           }).join('\n');
 
