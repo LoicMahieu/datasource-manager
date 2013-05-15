@@ -1,18 +1,39 @@
 
 <a href="#/datasources/new" class="btn btn-success btn-add">
-  <i class="icon-plus-sign icon-white "></i>
+  <i class="icon-plus-sign icon-white"></i>
   Add new Data Source
+</a>
+
+<a href="#/datasources/check" class="btn btn-warning btn-add">
+  <i class="icon-ok icon-white"></i>
+  Check all data sources
 </a>
 
 <table class="table table-bordered">
   <tr>
+    <th></th>
     <th>Data Source name</th>
     <th>Comment</th>
     <th></th>
   </tr>
   {#datasources}
     <tr>
-      <td><a href="#/datasources/{id}">{name}</a></td>
+      <td>
+        {#error}
+          <a href="#/datasources/check" class="btn btn-mini btn-{level}" data-toggle="tooltip" title="{message}">
+            <i class="icon-remove icon-white"></i>
+          </a>
+        {:else}
+          <a href="#/datasources/{id}" class="btn btn-mini btn-success">
+              <i class="icon-ok icon-white"></i>
+          </a>
+        {/error}
+      </td>
+      <td>
+        <a href="#/datasources/{id}">
+          {name}
+        </a>
+      </td>
       <td>{description}</td>
       <td class="actions">  
         <a href="#/datasources/{id}/duplicate" class="btn btn-mini">

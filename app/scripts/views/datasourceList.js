@@ -1,6 +1,6 @@
 define([
   'underscore',
-  'jquery',
+  'bootstrap',
   './lib/view',
   'rdust!../../views/datasources',
   '../models/datasourcesCollection',
@@ -25,10 +25,38 @@ define([
 
     render: function () {
       var view = this;
-      var data = { datasources: datasources.toJSON() };
+      var dataJson = [];
+
+      datasources.each(function (db) {
+        var valid = db.valid();
+        var error = {
+          level: '',
+          message: ''
+        };
+        var data = db.toJSON();
+
+        if (valid.length) {
+          error.level = valid[0].level;
+
+          if (error.level === 'error') {
+            error.level = 'danger';
+          }
+
+          error.message = valid.map(function(err) {
+            return err.message;
+          }).join('\n');
+
+          data.error = error;
+        }
+        
+        dataJson.push(data);
+      });
+
+      var data = { datasources: dataJson };
 
       this.template.render(data, function (err, output) {
         var $el = $(view.el);
+
         $el.html(output);
         view.rendered = true;
       });

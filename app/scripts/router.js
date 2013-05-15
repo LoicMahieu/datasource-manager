@@ -10,6 +10,7 @@ define([
       ''                         : 'home',
       
       'datasources'              : 'datasources',
+      'datasources/check'        : 'datasourceCheck',
       'datasources/new'          : 'datasourceEdit',
       'datasources/:id'          : 'datasourceEdit',
       'datasources/:id/:action'  : 'datasourceEdit',
@@ -50,6 +51,11 @@ define([
 
     datasources: function () {
       this._showView(ns.views.datasourceList);
+      this._toggleNav('datasources');
+    },
+
+    datasourceCheck: function () {
+      this._showView(ns.views.datasourceCheck);
       this._toggleNav('datasources');
     },
 

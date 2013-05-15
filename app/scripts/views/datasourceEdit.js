@@ -32,6 +32,8 @@ define([
         datasource = this.model = new datasources.model();
       }
 
+      console.log(data.datasource);
+
       this.template.render(data, function (err, output) {
         var $el = $(view.el);
         $el.html(output);
@@ -75,7 +77,7 @@ define([
         login_timeout: data.login_timeout,
 
         enable_clob: data.enable_clob === 'true',
-        enable_blob: data.enable_blob  === 'true',
+        enable_blob: data.enable_blob === 'true',
 
         buffer: data.buffer,
         blob_buffer: data.blob_buffer,

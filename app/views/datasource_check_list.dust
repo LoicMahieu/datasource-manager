@@ -1,0 +1,20 @@
+
+
+<table class="table table-bordered">
+  <tr>
+    <th>Data Source name</th>
+    <th>Error message</th>
+  </tr>
+  {#nonValids}
+    <tr>
+      <td><a href="#/datasources/{id}">{name}</a></td>
+      <td>
+        <ul>
+          {#messages}
+            <li class="text-{level}">{message}</li>
+          {/messages}
+        </ul>
+      </td>
+    </tr>
+  {/nonValids}
+</table>

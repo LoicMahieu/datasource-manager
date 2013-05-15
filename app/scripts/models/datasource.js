@@ -26,7 +26,100 @@ define([
       alter: true,
       storedproc: true,
       delete: true,
+      disable: false,
       validationQuery: 'SELECT 1 = 1'
+    },
+
+    valid: function () {
+      var notValids = [];
+
+      for (var key in this.validations) {
+
+        if (!this.validations.hasOwnProperty(key)) {
+          continue;
+        }
+
+        var validations = this.validations[key];
+        for (var i = 0 ; i < validations.length ; i++) {
+
+          if (!validations[i][2](this)) {
+            notValids.push({
+              level: validations[i][0],
+              message: validations[i][1]
+            });
+          }
+
+        }
+      }
+
+      return notValids;
+    },
+
+    validations : {
+      database: [
+        ['error',
+         'The database name is empty',
+         function (db) {
+          return db.get('database').trim() !== '';
+        }]
+      ],
+
+      username: [
+        ['error',
+         'The username is empty',
+         function (db) {
+          return db.get('username').trim() !== '';
+        }]
+      ],
+
+      password: [
+        ['error',
+         'The password is empty',
+         function (db) {
+          return db.get('password').trim() !== '';
+        }]
+      ],
+
+      host: [
+        ['error',
+         'The host is empty',
+         function (db) {
+          return db.get('host').trim() !== '';
+        }]
+      ],
+
+      validationQuery: [
+        ['error',
+         'The validationQuery is empty',
+         function (db) {
+          return db.get('validationQuery').trim() !== '';
+        }]
+      ],
+
+      name: [
+        ['error',
+         'The name is empty',
+         function (db) {
+          return db.get('name').trim() !== '';
+        }]
+      ],
+
+      disable: [
+        ['error',
+         'The disable connection field is checked',
+         function (db) {
+          return !db.get('disable');
+        }]
+      ],
+
+      port: [
+        ['warning',
+         'The port isn\'t 3306',
+         function (db) {
+          return db.get('port').trim() === '3306';
+        }]
+      ]
+
     }
   });
 

@@ -62,6 +62,7 @@ require([
   
   './views/datasourceList',
   './views/datasourceEdit',
+  './views/datasourceCheck',
   './views/serverList',
   './views/serverEdit',
   './views/links',
@@ -82,6 +83,7 @@ require([
 
   DatasourceListView,
   DatasourceEditView,
+  DatasourceCheckView,
   ServerList,
   ServerEdit,
   Links,
@@ -103,6 +105,7 @@ require([
 
   ns.views.datasourceList = new DatasourceListView();
   ns.views.datasourceEdit = new DatasourceEditView();
+  ns.views.datasourceCheck = new DatasourceCheckView();
   ns.views.serverList = new ServerList();
   ns.views.serverEdit = new ServerEdit();
   ns.views.links = new Links();
