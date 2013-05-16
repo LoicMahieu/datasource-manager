@@ -9,9 +9,12 @@ component output="false" {
   variables.logged = false;
 
   remote any function handleRequest(required string api_method) {
+
+
     if( !_isRemoteMethod(api_method) ) {
       return _return({ succcess = false, error = 'access_denied' });
     }
+
 
     try {
       _login();
@@ -125,7 +128,8 @@ component output="false" {
     boolean alter,                        // Allow SQL ALTER statements.
     boolean storedproc,                   // Allow SQL stored procedure calls.
     boolean delete,                       // Allow SQL DELETE statements.
-    string validationQuery                // Validation Query used by Coldfusion for validating the connection state when removing connections from the connection pool.
+    string validationQuery,               // Validation Query used by Coldfusion for validating the connection state when removing connections from the connection pool.
+    numeric version = 1                   // version of the datasource
   ) returnformat="json" {
     var res = {
       'success' = false,
@@ -137,12 +141,27 @@ component output="false" {
       return res;
     }
 
-    deleteDatasource(name);
+
+    var ds = getDatasource(name);
+    if( !isNull(ds) && !structIsEmpty(ds) ) {
+      if( ds.version == version ) {
+        return {
+          'success' = true,
+          'status' = 'unchanged'
+        };
+      } else {
+        description = serializeJSON({ 'message' = description, 'version' = version});
+      }
+
+      deleteDatasource(name);
+    }
+
     _datasource().setMySQL5(argumentCollection = arguments);
 
     if( datasourceExists(name) ) {
       return {
-        'success' = true
+        'success' = true,
+        'status' = 'changed'
       };
     }
 
@@ -163,13 +182,26 @@ component output="false" {
   }
 
   /**
-  * @hint Returns a structure containing all data sources or a specified data source.
+  * @hint Returns a structure a specified data source.
+  */
+  remote struct function getDatasource(required string dsnname) returnformat="json" {
+    var dbs = createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
+
+    if( !dbs.containsKey(dsnname) ) {
+      return {};
+    }
+
+    return _formatDatasource(_util().copyStruct(dbs[dsnname]));
+  }
+
+  /**
+  * @hint Returns a structure containing all data sources.
   */
   remote struct function getDatasources() returnformat="json" {
     var dbs = createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
     var i = '';
 
-    dbs = duplicate(dbs);
+    dbs = _util().copyStruct(dbs);
 
     for( i in dbs ) {
       if( len(dbs[i]['password']) ) {
@@ -177,6 +209,8 @@ component output="false" {
           dbs[i]['password'] = decrypt(dbs[i]['password'], generate3DesKey("0yJ!@1$r8p0L@r1$6yJ!@1rj"), "DESede", "Base64");
         } catch(any e) {}
       }
+
+      dbs[i] = _formatDatasource(dbs[i]);
     }
 
     return _structToLCase( dbs );
@@ -212,7 +246,8 @@ component output="false" {
     return _return({
       'success' = false,
       'reason' = 'unknown',
-      'message' = e.message
+      'message' = e.message,
+      'stackTrace' = e.stackTrace
     });
   }
 
@@ -268,6 +303,7 @@ component output="false" {
     }
 
     var api = createObject("component","CFIDE.adminapi.administrator");
+
     if( structKeyExists(url, 'admin_password') ) {
       api.login(url.admin_password);
       variables.logged = true;
@@ -284,6 +320,27 @@ component output="false" {
     }
 
     return false;
+  }
+
+  private struct function _formatDatasource(required struct db) {
+    var desc = structKeyExists(db, 'description') ? db.description : '';
+
+    if( !isJSON(desc) ) {
+      desc = {
+        'message' = desc,
+        'version' = 0
+      };
+    } else {
+      desc = deserializeJSON(desc); 
+      desc = isStruct(desc) ? desc : {};
+      desc.message = structKeyExists(desc, 'message') ? desc.message : '';
+      desc.version = structKeyExists(desc, 'version') ? desc.version : 0;
+    }
+    
+    db['description'] = desc.message;
+    db['version'] = desc.version;
+
+    return db;
   }
 
 }

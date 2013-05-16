@@ -20,4 +20,19 @@
     <cfheader statusCode="#statusCode#" statusText="#statusText#" />
   </cffunction>
 
+  <cfscript>
+    function copyStruct(data) {
+      var i = '';
+      var res = {};
+      for( i in data ) {
+        if( isStruct(data[i]) ) {
+          res[i] = copyStruct(data[i]);
+        } else {
+          res[i] = data[i];
+        }
+      }
+      return res;
+    }
+  </cfscript>
+
 </cfcomponent>

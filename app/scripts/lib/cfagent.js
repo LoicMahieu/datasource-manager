@@ -51,7 +51,8 @@ define([
       drop: db.get('drop'),
       revoke: db.get('revoke'),
       select: db.get('select'),
-      validationquery: db.get('validationQuery')
+      validationquery: db.get('validationQuery'),
+      version: db.get('version')
     };
 
     if (db.get('maxconnections')) {

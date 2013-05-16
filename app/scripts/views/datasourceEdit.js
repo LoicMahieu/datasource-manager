@@ -32,7 +32,10 @@ define([
         datasource = this.model = new datasources.model();
       }
 
-      console.log(data.datasource);
+      console.log("version data");
+      console.log(data.datasource.version);
+      console.log("version data");
+      console.log(this.model.get('version'));
 
       this.template.render(data, function (err, output) {
         var $el = $(view.el);
@@ -51,6 +54,9 @@ define([
 
       var $form = $(e.currentTarget);
       var data = util.serializeObject($form);
+      data.version = this.model.get('version');
+
+      console.log(this.model.get('version'));
 
       this.model.set({
         name: data.name,
@@ -95,11 +101,16 @@ define([
         revoke: data.revoke === 'true',
         select: data.select === 'true',
 
+        version: data.version,
+
         validationQuery: data.validationQuery
       });
+
       datasources.add(this.model).sort();
 
       this.model.save();
+
+      console.log(this.model.get('version'));
 
       ns.router.navigate($form.attr('action'), { replace: true });
     },

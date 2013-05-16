@@ -27,7 +27,20 @@ define([
       storedproc: true,
       delete: true,
       disable: false,
+      enablemaxconnections: false,
+      maxconnections: 0,
+      version: 1,
       validationQuery: 'SELECT 1 = 1'
+    },
+
+    initialize: function () {
+      var model = this;
+      this.on('change', function (a, b, c, d) {
+        if( !model.hasChanged('version') ) {
+          model.set('version', model.get('version') + 1);
+          console.log('version updated');
+        }
+      });
     },
 
     valid: function () {
@@ -112,6 +125,14 @@ define([
         }]
       ],
 
+      maxconnections: [
+        ['error',
+         'maxconnections is not setted but enablemaxconnections is true',
+         function (db) {
+          return !(db.get('enablemaxconnections') && !db.get('maxconnections'));
+        }]
+      ],
+
       port: [
         ['warning',
          'The port isn\'t 3306',
@@ -119,6 +140,7 @@ define([
           return db.get('port').trim() === '3306';
         }]
       ]
+
 
     }
   });

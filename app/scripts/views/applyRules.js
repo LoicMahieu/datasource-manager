@@ -16,13 +16,16 @@ define([
     template: template,
 
     initialize: function () {
-      this.on('show', function () {
+      var view = this;
+
+      view.on('show', function () {
         if (window.confirm('Are you sure?')) {
-          this.applyRules();
+          view.applyRules();
         } else {
           ns.router.navigate('/');
         }
       });
+
     },
 
     applyRules: function () {
@@ -46,7 +49,7 @@ define([
 
           $('<li />')
             .append($label)
-            .append($('<span />').text(db.get('name')))
+            .append($('<span />').text('\t' + db.get('name')))
             .appendTo($list);
 
           var doCall = function (next) {
@@ -61,6 +64,7 @@ define([
             var callFail = function () {
               fail++;
               $label.removeClass('label-warning').addClass('label-important');
+              $label.text('failed');
               callEnd();
               next();
             };
@@ -72,7 +76,11 @@ define([
               }
               success++;
               $progressBar.css('width', ((success / dbs.length) * 100) + '%');
-              $label.removeClass('label-warning').addClass('label-success');
+              $label.removeClass('label-warning')
+                    .addClass(data.status == 'unchanged' ? 'label-success' : 'label-info')
+                    .text('success')
+                    .attr('data-toggle', 'tooltip')
+                    .attr('title', data.status);
               callEnd();
               next();
             });
