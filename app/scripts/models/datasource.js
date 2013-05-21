@@ -35,8 +35,8 @@ define([
 
     initialize: function () {
       var model = this;
-      this.on('change', function (a, b, c, d) {
-        if( !model.hasChanged('version') ) {
+      this.on('change', function () {
+        if (!model.hasChanged('version')) {
           model.set('version', model.get('version') + 1);
         }
       });

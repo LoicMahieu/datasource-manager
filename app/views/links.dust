@@ -1,45 +1,7 @@
 
-<table class="table table-bordered table-striped table-hover links">
-  <thead>
-    <tr>
-      <td></td>
-      <td>192.168.0.10</td>
-      <td>192.168.0.18</td>
-      <td>192.168.0.19</td>
-      <td>192.168.0.25</td>
-      <td>192.168.0.40</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Bioticas</th>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-    </tr>
-    <tr>
-      <th>Royal Canin</th>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-    </tr>
-    <tr>
-      <th>Greenpeace</th>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-      <td><input type="checkbox" /></td>
-    </tr>
-  </tbody>
-</table>
+<div id="links_table"></div>
 
 <div class="controls form-inline">
   <button type="submit" class="btn btn-primary">Save</button>
   <a href="#/apply" class="btn btn-danger">Apply rules</a>
-  
 </div>

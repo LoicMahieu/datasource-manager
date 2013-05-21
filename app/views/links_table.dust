@@ -1,0 +1,67 @@
+
+<table class="table table-bordered table-striped table-hover links">
+  <thead>
+    <tr>
+      <td></td>
+      {#servers}
+        <td data-id="{id}">
+          {reference}
+          &nbsp;
+          <div class="btn-group">
+            <!-- <button class="btn btn-link" disabled="true"> {reference} </button> -->
+            <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="check-column" data-id="{id}"> Check all</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a class="cross-check-column">Cross check</a>
+              </li>
+            </ul>
+          </div>
+        </td>
+      {/servers}
+    </tr>
+  </thead>
+  <tbody>
+    {#datasources}
+      <tr>
+        <th>
+          <div class="btn-group">
+            {#error}
+              <a href="#/datasources/check" class="btn btn-mini btn-{level}" data-toggle="tooltip" title="{message}">
+                <i class="icon-remove icon-white"></i>
+              </a>
+            {:else}
+              <a href="#/datasources/{id}" class="btn btn-mini btn-success">
+                  <i class="icon-ok icon-white"></i>
+              </a>
+            {/error}
+            <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+              &nbsp;
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="check-row" data-id="{id}"> Check all</a>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <a class="cross-check-row">Cross check</a>
+              </li>
+            </ul>
+          </div>
+          &nbsp;{name}
+        </th>
+        {#checked}
+          <td>
+            <input type="checkbox" {#check} checked="{check}" {/check} data-datasourceid="{id}" data-serverid="{serverId}"/>
+          </td>
+        {/checked}
+      </tr>
+    {/datasources}
+  </tbody>
+</table>

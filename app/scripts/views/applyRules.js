@@ -77,7 +77,7 @@ define([
               success++;
               $progressBar.css('width', ((success / dbs.length) * 100) + '%');
               $label.removeClass('label-warning')
-                    .addClass(data.status == 'unchanged' ? 'label-success' : 'label-info')
+                    .addClass(data.status === 'unchanged' ? 'label-success' : 'label-info')
                     .text('success')
                     .attr('data-toggle', 'tooltip')
                     .attr('title', data.status);
@@ -86,8 +86,6 @@ define([
             });
 
             call.fail(callFail);
-
-            console.log(db);
           };
 
           callTasks.push(doCall);

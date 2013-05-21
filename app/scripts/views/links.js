@@ -3,9 +3,10 @@ define([
   'jquery',
   './lib/view',
   'rdust!../../views/links',
+  'rdust!../../views/links_table',
   '../models/datasourcesCollection',
   '../models/serversCollection'
-], function (_, $, View, template, datasources, servers) {
+], function (_, $, View, template, templateTable, datasources, servers) {
   'use strict';
 
   var constructor = View, proto = View.prototype;
@@ -14,8 +15,10 @@ define([
     template: template,
 
     events: {
-      'click thead td': 'checkColumn',
-      'click tbody th': 'checkRow',
+      'click .check-column': 'checkColumn',
+      'click .check-row': 'checkRow',
+      'click .cross-check-column': 'crossCheckColumn',
+      'click .cross-check-row': 'crossCheckRow',
       'click tbody td': 'checkInput',
       'click button[type="submit"]': 'save'
     },
@@ -34,8 +37,8 @@ define([
       this.$el.find('input[type=checkbox]').each(function () {
         var $input = $(this),
             checked = $input.is(':checked'),
-            server = $input.data('server'),
-            db = $input.data('datasource');
+            server = servers.get($input.data('serverid')),
+            db = datasources.get($input.data('datasourceid'));
 
         server[checked ? 'addDatasource' : 'removeDatasource'](db);
 
@@ -48,7 +51,7 @@ define([
     },
 
     checkColumn: function (e) {
-      var index = $(e.currentTarget).index(),
+      var index = $(e.currentTarget).data('id'),
           $inputs = $();
 
       this.$el.find('tbody tr').each(function () {
@@ -64,19 +67,20 @@ define([
           nonChecked = $inputs.filter(':not([checked])').size();
 
       if (checked === 0 || checked > nonChecked && checked !== $inputs.size()) {
-        $inputs.attr('checked', 'checked');
+        $inputs.attr('checked', 'true');
       } else {
         $inputs.removeAttr('checked');
       }
     },
 
     checkRow: function (e) {
-      var $inputs = $(e.currentTarget).parent('tr').find('input'),
+      var $rowInput = $(e.currentTarget).parents('tr');
+      var $inputs = $rowInput.find('input'),
           checked = $inputs.filter('[checked]').size(),
           nonChecked = $inputs.filter(':not([checked])').size();
 
       if (checked === 0 || checked > nonChecked && checked !== $inputs.size()) {
-        $inputs.attr('checked', 'checked');
+        $inputs.attr('checked', 'true');
       } else {
         $inputs.removeAttr('checked');
       }
@@ -88,10 +92,18 @@ define([
       }
       var $input = $(e.currentTarget).find('input');
       if (!$input.is(':checked')) {
-        $input.attr('checked', 'checked');
+        $input.attr('checked', 'true');
       } else {
         $input.removeAttr('checked');
       }
+    },
+
+    crossCheckColumn: function (e) {
+      console.log(e);
+    },
+
+    crossCheckRow: function (e) {
+      console.log(e);
     },
 
     render: function () {
@@ -104,47 +116,51 @@ define([
       if (!this.rendered) {
         return;
       }
-
-      var $head = this.$el.find('thead tr');
-      var $body = this.$el.find('tbody');
-
-      $head.find('td:not(:first)').remove();
-      $body.find('tr').remove();
-
-      servers.each(function (server) {
-        $('<td />')
-          .append(
-            $('<a />')
-              .attr('href', '#/servers/' + server.get('id'))
-              .text(server.get('reference'))
-          )
-          .appendTo($head);
-      });
+      var view = this;
+      var dataJson = [];
 
       datasources.each(function (db) {
-        var $tr = $('<tr />')
-          .append(
-            $('<th />')
-              .append(
-                $('<a />')
-                  .attr('href', '#/datasources/' + db.get('id'))
-                  .text(db.get('name'))
-              )
-          )
-          .appendTo($body);
+        var valid = db.valid();
+        var error = {
+          level: '',
+          message: ''
+        };
+        var data = db.toJSON();
 
-        servers.each(function (server) {
-          var $input = $('<input />', {
-            type: 'checkbox',
-            checked: server.hasDatasource(db)
-          })
-            .data('server', server)
-            .data('datasource', db);
-          $('<td />')
-            .append($input)
-            .appendTo($tr);
+        if (valid.length) {
+          error.level = valid[0].level;
+
+          if (error.level === 'error') {
+            error.level = 'danger';
+          }
+
+          error.message = valid.map(function (err) {
+            return err.message;
+          }).join('\n');
+
+          data.error = error;
+        }
+
+        data.checked = [];
+        servers.each(function (serv) {
+          data.checked.push({
+            check : serv.hasDatasource(db),
+            serverId : serv.get('id')
+          });
         });
+
+        dataJson.push(data);
       });
+
+      var data = {
+        datasources: dataJson,
+        servers: servers.toJSON()
+      };
+
+      templateTable.render(data, function (err, output) {
+        view.$el.find('#links_table').html(output);
+      });
+
     }
   });
 
