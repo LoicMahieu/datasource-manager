@@ -38,7 +38,6 @@ define([
       this.on('change', function (a, b, c, d) {
         if( !model.hasChanged('version') ) {
           model.set('version', model.get('version') + 1);
-          console.log('version updated');
         }
       });
     },
