@@ -17,6 +17,7 @@ $textColor: #5F6677;
 // Vendor libraries
 // -------------------------------------------------
 @import "lib/normalize.css";
+@import "lib/btn-switch.css";
 
 body {
 	background: #FFF;
@@ -69,7 +70,7 @@ td.actions {
 .edit {
 	.table {
 		max-width: 70%;
-	
+
 		td { text-align: center; }
 	
 		input[type="checkbox"] {
@@ -80,6 +81,8 @@ td.actions {
 		margin-bottom: 0;
 	}
 }
+
+
 
 #deleteModal {
 	text-align: left;
@@ -153,4 +156,40 @@ h5  {
 	}
 	
 	tr { cursor: pointer; }
+}
+
+#btn-on {
+	&.disabled {
+		background-image: none;
+		outline: 0;
+		@include opacity(1);
+	}
+}
+
+#btn-off {
+	&.disabled {
+		background-image: none;
+		outline: 0;
+		@include opacity(1);
+	}
+}
+
+
+
+#links_table {
+	td {
+		text-align: center;
+		&.success {
+			background-color: darken($successBackground, 5%);
+		}
+		&.error {
+			background-color: darken($errorBackground, 5%);
+		}
+		&.warning {
+			background-color: darken($warningBackground, 5%);
+		}
+		&.info {
+			background-color: darken($infoBackground, 5%);
+		}
+	}
 }

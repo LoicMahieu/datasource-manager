@@ -14,12 +14,15 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a class="check-column" data-id="{id}"> Check all</a>
+                <a class="check-column" data-id="{id}">
+                  <i class="icon-arrow-down"></i> Check all
+                </a>
               </li>
               <li class="divider"></li>
               <li>
-                <a class="cross-check-column">Cross check</a>
-              </li>
+                <a href="#/servers/{id}">
+                  <i class="icon-edit"></i> Edit server
+                </a>
             </ul>
           </div>
         </td>
@@ -32,11 +35,11 @@
         <th>
           <div class="btn-group">
             {#error}
-              <a href="#/datasources/check" class="btn btn-mini btn-{level}" data-toggle="tooltip" title="{message}">
+              <a class="btn btn-mini btn-{level}" data-toggle="tooltip" title="{message}">
                 <i class="icon-remove icon-white"></i>
               </a>
             {:else}
-              <a href="#/datasources/{id}" class="btn btn-mini btn-success">
+              <a class="btn btn-mini btn-success">
                   <i class="icon-ok icon-white"></i>
               </a>
             {/error}
@@ -46,12 +49,22 @@
             </button>
             <ul class="dropdown-menu">
               <li>
-                <a class="check-row" data-id="{id}"> Check all</a>
+                <a class="check-row" data-id="{id}">
+                  <i class="icon-arrow-right"></i> Check all
+                </a>
               </li>
               <li class="divider"></li>
               <li>
-                <a class="cross-check-row">Cross check</a>
+                <a href="#/datasources/{id}">
+                  <i class="icon-edit"></i> Edit Datasource
+                </a>
               </li>
+              <li>
+                <a href="#/datasources/check">
+                  <i class="icon-ok"></i> Check this datasource
+                </a>
+              </li>
+              
             </ul>
           </div>
           &nbsp;{name}

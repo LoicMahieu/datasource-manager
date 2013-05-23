@@ -1,7 +1,30 @@
 
+<div id="switch" class="control-group">
+  <div class="btn-switch btn-switch-right">
+    <button type="button" class="btn" data-text="Apply">
+      <i class="icon-ok"></i> 
+    </button>
+    <button type="button" class="btn" data-text="Save">
+      <i class="icon-plus"></i> 
+    </button>
+  </div>
+</div>
+
+
 <div id="links_table"></div>
 
 <div class="controls form-inline">
-  <button type="submit" class="btn btn-primary">Save</button>
-  <a href="#/apply" class="btn btn-danger">Apply rules</a>
+  <div class="btn-group">
+    <a id="apply-rules" class="btn btn-danger disabled">
+      <i class="icon-ok-sign icon-white"></i> Apply rules
+    </a>
+  </div>
+
+  <div class="btn-group">
+    <button type="submit" id="save-links" class="btn btn-primary">
+      <i class="icon-plus-sign icon-white"></i> Save
+    </button>
+  </div>
 </div>
+
+<div id='progressbars-container'></div>

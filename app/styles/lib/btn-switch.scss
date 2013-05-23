@@ -1,0 +1,50 @@
+
+@import "_compass_twitter_bootstrap.sass";
+
+.btn-switch {
+  @extend .btn-group;
+
+  &.btn-switch-left {
+    .btn:first-of-type {
+      &:after {
+        content: attr(data-text) "";
+        color: white;
+      }
+      @extend .btn-warning;
+      @extend .active;
+
+      background-image: none;
+      outline: 0;
+      @include opacity(1);
+    }
+    .btn:last-of-type {
+      &:after, &:before {
+        content: ".";
+        color: transparent;
+      }
+    }
+  }
+
+  &.btn-switch-right {
+    .btn:first-of-type {
+      &:after {
+        content: ".";
+        color: transparent;
+      }
+    }
+    .btn:last-of-type {
+      &:after {
+        content: attr(data-text) "";
+        color: white;
+      }
+      @extend .btn-success;
+      @extend .active;
+
+      background-image: none;
+      outline: 0;
+      @include opacity(1);
+    }
+  }
+
+
+}

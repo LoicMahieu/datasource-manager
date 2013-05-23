@@ -69,8 +69,7 @@ require([
   './views/applyRules',
 
   './models/server',
-  './models/datasource',
-  './models/link'
+  './models/datasource'
 
   //if you to import the export_datasource uncomment this
   //,'./import'
@@ -90,14 +89,12 @@ require([
   ApplyRules,
 
   ServerModel,
-  DatasourceModel,
-  LinkModel
+  DatasourceModel
 ) {
   'use strict';
 
   ns.models.Server = ServerModel;
   ns.models.Datasource = DatasourceModel;
-  ns.models.Link = LinkModel;
 
   Backbone.Relational.store.addModelScope(ns.models);
 
