@@ -245,8 +245,8 @@ define([
 
         $progressBar.appendTo($progress);
         $failBar.appendTo($progress);
-        $title.appendTo(this.$progressBarContainer);
-        $progress.appendTo(this.$progressBarContainer);
+        $title.appendTo(view.$progressBarContainer);
+        $progress.appendTo(view.$progressBarContainer);
       });
 
       return superCallTasks;
@@ -257,9 +257,10 @@ define([
 
       proto.render.apply(this, arguments);
 
+      this.$progressBarContainer = this.$el.find('#progressbars-container');
+      this.$applyRulesButton = this.$el.find('#apply-rules');
+
       if (!rendered) {
-        this.$progressBarContainer = this.$el.find('#progressbars-container');
-        this.$applyRulesButton = this.$el.find('#apply-rules');
 
         this.$btnSwitch = this.$el.find('.btn-switch');
         this.$btnSwitch.btnSwitch();
