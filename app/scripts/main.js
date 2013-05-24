@@ -66,6 +66,7 @@ require([
   './views/serverList',
   './views/serverEdit',
   './views/links',
+  './views/verifyLinks',
 
   './models/server',
   './models/datasource'
@@ -85,6 +86,7 @@ require([
   ServerList,
   ServerEdit,
   Links,
+  VerifyLinks,
 
   ServerModel,
   DatasourceModel
@@ -104,6 +106,8 @@ require([
   ns.views.serverList = new ServerList();
   ns.views.serverEdit = new ServerEdit();
   ns.views.links = new Links();
+  ns.views.verifyLinks = new VerifyLinks();
+
 
   $(function () {
 
