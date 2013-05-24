@@ -19,7 +19,8 @@ define([
       'servers/new'              : 'serverEdit',
       'servers/:id'              : 'serverEdit',
       
-      'links'                    : 'links'
+      'links'                    : 'links',
+      'verify'                   : 'verify'
     },
 
     _showView: function (view, renderArgs) {
@@ -76,6 +77,11 @@ define([
     links: function () {
       this._showView(ns.views.links);
       this._toggleNav('links');
+    },
+
+    verify: function () {
+      this._showView(ns.views.verifyLinks);
+      this._toggleNav('verify');
     }
   });
 

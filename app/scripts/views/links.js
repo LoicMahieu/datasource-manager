@@ -35,9 +35,6 @@ define([
       servers.on('reset add remove', _.bind(this._render, this));
       servers.fetch();
 
-      this.on('hide', function () {
-        view.$el.find('#btn-off').trigger('click');
-      });
     },
 
     save: function () {
