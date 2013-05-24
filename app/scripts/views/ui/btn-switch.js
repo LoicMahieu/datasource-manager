@@ -21,8 +21,8 @@ define([
   };
 
   $.fn.btnSwitch = function () {
-    this.each(function() {
-      var btn = new BtnSwitch(this);
+    this.each(function () {
+      new BtnSwitch(this);
     });
   };
 

@@ -124,7 +124,7 @@ define([
       this.$progressBarContainer.empty();
     },
 
-    applyRules: function (e) {
+    applyRules: function () {
       if (this.$applyRulesButton.hasClass('disabled') || !window.confirm('Are you sure?')) {
         return;
       }
@@ -222,7 +222,7 @@ define([
             });
 
             call.fail(function (xhr, error, status) {
-              console.warn('HTTP Error: ' + xhr.status + ' ' + xhr.statusText, xhr);
+              console.warn('HTTP Error: ' + xhr.status + ' ' + xhr.statusText, xhr, error, status);
 
               callFail(xhr.status + ' ' + xhr.statusText);
             });
