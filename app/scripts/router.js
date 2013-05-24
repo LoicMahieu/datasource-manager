@@ -19,8 +19,7 @@ define([
       'servers/new'              : 'serverEdit',
       'servers/:id'              : 'serverEdit',
       
-      'links'                    : 'links',
-      'apply'                    : 'applyRules'
+      'links'                    : 'links'
     },
 
     _showView: function (view, renderArgs) {
@@ -77,11 +76,6 @@ define([
     links: function () {
       this._showView(ns.views.links);
       this._toggleNav('links');
-    },
-
-    applyRules: function () {
-      this._showView(ns.views.applyRules);
-      this._toggleNav('');
     }
   });
 

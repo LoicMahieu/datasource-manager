@@ -66,7 +66,6 @@ require([
   './views/serverList',
   './views/serverEdit',
   './views/links',
-  './views/applyRules',
 
   './models/server',
   './models/datasource'
@@ -86,7 +85,6 @@ require([
   ServerList,
   ServerEdit,
   Links,
-  ApplyRules,
 
   ServerModel,
   DatasourceModel
@@ -106,7 +104,6 @@ require([
   ns.views.serverList = new ServerList();
   ns.views.serverEdit = new ServerEdit();
   ns.views.links = new Links();
-  ns.views.applyRules = new ApplyRules();
 
   $(function () {
 
