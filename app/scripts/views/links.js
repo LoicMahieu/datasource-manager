@@ -257,10 +257,10 @@ define([
 
       proto.render.apply(this, arguments);
 
-      this.$progressBarContainer = this.$el.find('#progressbars-container');
-      this.$applyRulesButton = this.$el.find('#apply-rules');
 
       if (!rendered) {
+        this.$progressBarContainer = this.$el.find('#progressbars-container');
+        this.$applyRulesButton = this.$el.find('#apply-rules');
 
         this.$btnSwitch = this.$el.find('.btn-switch');
         this.$btnSwitch.btnSwitch();
