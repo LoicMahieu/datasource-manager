@@ -3,12 +3,13 @@ define([
   'underscore',
   'jquery',
   './lib/view',
+  './ui/btn-switch',
   'rdust!../../views/links',
   'rdust!../../views/links_table',
   '../models/datasourcesCollection',
   '../models/serversCollection',
   '../lib/cfagent',
-], function (async, _, $, View, template, templateTable, datasources, servers, CFAgent, undefined) {
+], function (async, _, $, View, BtnSwitch, template, templateTable, datasources, servers, CFAgent, undefined) {
   'use strict';
 
   var constructor = View, proto = View.prototype;
@@ -21,7 +22,8 @@ define([
       'click .check-row': 'checkRow',
       'click tbody td': 'checkInput',
       'click button[type="submit"]': 'save',
-      'click button[type="button"]': 'toggle',
+      'btn-switch.activate .btn-switch': '_toggleOn',
+      'btn-switch.desactivate .btn-switch': '_toggleOff',
       'click #apply-rules': 'applyRules'
     },
 
@@ -108,37 +110,6 @@ define([
       }
     },
 
-    toggle: function (e) {
-      var $input = $(e.currentTarget);
-      var left = 'btn-switch-left',
-          right = 'btn-switch-right';
-
-      if (!$input.prev().length && $input.parent().hasClass(left)) {
-        this._toggle($input, left, right, false);
-        return;
-      }
-
-      if (!$input.next().length && $input.parent().hasClass(right)) {
-        this._toggle($input, right, left, true);
-        return;
-      }
-
-      if ($input.prev().length && !$input.parent().hasClass(right)) {
-        this._toggle($input, left, right, false);
-        return;
-      }
-
-      if ($input.next().length && !$input.parent().hasClass(left)) {
-        this._toggle($input, right, left, true);
-        return;
-      }
-    },
-
-    _toggle: function ($input, classToRemove, classToAdd, enable) {
-      $input.parent().removeClass(classToRemove).addClass(classToAdd);
-      this[enable ? '_toggleOn' : '_toggleOff']();
-    },
-
     _toggleOn: function () {
       this.$el.find('input:not(:checked)').attr('disabled', 'true');
       this.$el.find('#apply-rules').removeClass('disabled');
@@ -146,33 +117,26 @@ define([
     },
 
     _toggleOff: function () {
-      this.render();
+      this._render();
       this.$el.find('#apply-rules').addClass('disabled');
       this.$el.find('#save-links').removeClass('disabled');
 
-      $('.' + this.progressFinder).remove();
+      this.$progressBarContainer.empty();
     },
 
     applyRules: function (e) {
-      var $apply = $(e.currentTarget);
-      this.progressFinder = 'progress-finder';
-
-      if ($apply.hasClass('disabled')) {
+      if (this.$applyRulesButton.hasClass('disabled') || !window.confirm('Are you sure?')) {
         return;
       }
 
-      if (!window.confirm('Are you sure?')) {
-        return;
-      }
+      this.$progressBarContainer.empty();
+      this.$applyRulesButton.addClass('disabled');
 
-      $('.' + this.progressFinder).remove();
-      $apply.addClass('disabled');
-
-      var links = {},
+      var view = this,
+          links = {},
           size = 0;
 
-      var $tds = {},
-          $progressBarContainer = $('#progressbars-container');
+      var $tds = {};
 
       this.$el.find('input:checked').each(function () {
         var servId = $(this).data('serverid'),
@@ -193,19 +157,18 @@ define([
         $(this).attr('disabled', 'disabled');
       });
 
-      var superCallTasks = this._processLinks(links, $tds, $progressBarContainer);
+      var superCallTasks = this._processLinks(links, $tds, this.$progressBarContainer);
       var enableApply = function () {
-        $apply.removeClass('disabled');
+        view.$applyRulesButton.removeClass('disabled');
         $.each($tds, function () {
           this.children().removeAttr('disabled');
         });
       };
 
       async.parallel(superCallTasks, enableApply);
-
     },
 
-    _processLinks: function (links, $tds, $progressBarContainer) {
+    _processLinks: function (links, $tds) {
       var superCallTasks = [];
       var view = this;
 
@@ -217,20 +180,24 @@ define([
             success = 0,
             callTasks = [];
 
-        var $title = $('<h3 />', {class: view.progressFinder}).text(ref),
-            $progress = $('<div />', { class: 'progress progress-striped active ' + view.progressFinder }),
-            $failBar = $('<div />', { class: 'bar bar-danger ' + view.progressFinder, style: 'width: 0%' }),
-            $progressBar = $('<div />', { class: 'bar ' + view.progressFinder, style: 'width: 0%' });
+        var $title = $('<h3 />').text(ref),
+            $progress = $('<div />', { class: 'progress progress-striped active'}),
+            $failBar = $('<div />', { class: 'bar bar-danger', style: 'width: 0%' }),
+            $progressBar = $('<div />', { class: 'bar', style: 'width: 0%' });
 
         $.each(dbs, function (j, db) {
           var doCall = function (next) {
             var call = cfagent.setDatasource(db);
             var key = db.get('id') + '-' + servs.server.get('id');
 
-            var callFail = function (data, error, status) {
+            var tooltip = function (text) {
+              $tds[key].attr('data-toggle', 'tooltip')
+                  .attr('title', text);
+            };
+
+            var callFail = function (status) {
               if (status) {
-                $tds[key].attr('data-toggle', 'tooltip')
-                    .attr('title', status);
+                tooltip(status);
               }
               fail++;
               $tds[key].addClass('error');
@@ -238,8 +205,11 @@ define([
             };
 
             call.done(function (data) {
-              $tds[key].attr('data-toggle', 'tooltip')
-                  .attr('title', data.status);
+              tooltip(data.status);
+
+              if (data.error) {
+                console.warn(data.error);
+              }
 
               if (!data.success) {
                 callFail();
@@ -251,7 +221,11 @@ define([
               $progressBar.css('width', ((success / dbs.length) * 100) + '%');
             });
 
-            call.fail(callFail);
+            call.fail(function (xhr, error, status) {
+              console.warn('HTTP Error: ' + xhr.status + ' ' + xhr.statusText, xhr);
+
+              callFail(xhr.status + ' ' + xhr.statusText);
+            });
 
             call.always(function () {
               if (success + fail === dbs.length) {
@@ -271,16 +245,32 @@ define([
 
         $progressBar.appendTo($progress);
         $failBar.appendTo($progress);
-        $title.appendTo($progressBarContainer);
-        $progress.appendTo($progressBarContainer);
+        $title.appendTo(this.$progressBarContainer);
+        $progress.appendTo(this.$progressBarContainer);
       });
 
       return superCallTasks;
     },
 
     render: function () {
+      var rendered = this.rendered;
+
       proto.render.apply(this, arguments);
+
+      if (!rendered) {
+        this.$progressBarContainer = this.$el.find('#progressbars-container');
+        this.$applyRulesButton = this.$el.find('#apply-rules');
+
+        this.$btnSwitch = this.$el.find('.btn-switch');
+        this.$btnSwitch.btnSwitch();
+      }
+
+      if (this.$btnSwitch.hasClassLeft()) {
+        this.$btnSwitch.trigger('click');
+      }
+
       this._render();
+
       return this;
     },
 
@@ -312,8 +302,9 @@ define([
         data.checked = [];
         servers.each(function (serv) {
           data.checked.push({
-            check : serv.hasDatasource(db),
-            serverId : serv.get('id')
+            check: serv.hasDatasource(db),
+            serverId: serv.get('id'),
+            error: valid.length ? true : undefined
           });
         });
 

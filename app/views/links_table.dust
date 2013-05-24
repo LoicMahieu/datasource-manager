@@ -71,7 +71,11 @@
         </th>
         {#checked}
           <td>
-            <input type="checkbox" {#check} checked="{check}" {/check} data-datasourceid="{id}" data-serverid="{serverId}"/>
+            {#error}
+              <input type="checkbox" data-datasourceid="{id}" data-serverid="{serverId}" disabled="disabled" />
+            {:else}
+              <input type="checkbox" {#check} checked="{check}" {/check} data-datasourceid="{id}" data-serverid="{serverId}"/>
+            {/error}
           </td>
         {/checked}
       </tr>
