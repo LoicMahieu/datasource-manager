@@ -3,10 +3,8 @@
 
 <div class="controls form-inline">
   <div class="btn-group">
-    <a id="apply-rules" class="btn btn-info">
+    <button type="button" class="btn btn-info">
       <i class="icon-ok-sign icon-white"></i> Verify links
-    </a>
+    </button>
   </div>
 </div>
-
-<div id='progressbars-container'></div>

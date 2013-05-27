@@ -16,6 +16,12 @@ define([
     return this._callAPI('getDatasources', {}, success, error);
   };
 
+  CFAgent.prototype.getDatasource = function (dbName, success, error) {
+    return this._callAPI('getDatasource', {
+      dsnname: dbName
+    }, success, error);
+  };
+
   CFAgent.prototype.setMySQL5 = function (db, success, error) {
     return this._callAPI('setMySQL5', db, success, error);
   };

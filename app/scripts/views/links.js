@@ -28,7 +28,6 @@ define([
     },
 
     initialize: function () {
-      var view = this;
       datasources.on('reset add remove', _.bind(this._render, this));
       datasources.fetch();
 

@@ -142,9 +142,15 @@ component output="false" {
     }
 
 
-    var ds = getDatasource(name);
+    var ds = _getDatasource(name);
     if( !isNull(ds) && !structIsEmpty(ds) ) {
       if( ds.version == version ) {
+        if( !verifyDsn(name) ) {
+          return {
+            'success' = false,
+            'status' = 'datasource_not_verified'
+          };
+        }
         return {
           'success' = true,
           'status' = 'unchanged'
@@ -158,14 +164,24 @@ component output="false" {
 
     _datasource().setMySQL5(argumentCollection = arguments);
 
-    if( datasourceExists(name) ) {
+    if( !datasourceExists(name) ) {
       return {
-        'success' = true,
-        'status' = 'changed'
+        'success' = false,
+        'status' = 'datasource_not_exists'
       };
     }
 
-    return res;
+    if( !verifyDsn(name) ) {
+      return {
+        'success' = false,
+        'status' = 'datasource_not_verified'
+      };
+    }
+
+    return {
+      'success' = true,
+      'status' = 'changed'
+    };
   }
 
   /**
@@ -188,10 +204,25 @@ component output="false" {
     var dbs = createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
 
     if( !dbs.containsKey(dsnname) ) {
-      return {};
+      return {
+        'success' = false,
+        'status' = dsnname + " does'nt exist"
+      };
     }
 
-    return _formatDatasource(_util().copyStruct(dbs[dsnname]));
+    var db = dbs[dsnname];
+    if( len(db['password']) ) {
+      try {
+        db['password'] = decrypt(db['password'], generate3DesKey("0yJ!@1$r8p0L@r1$6yJ!@1rj"), "DESede", "Base64");
+      } catch(any e) {}
+    }
+
+    return {
+      'success' = true,
+      'status' = 'datasource exist',
+      'data' = _formatDatasource(_util().copyStruct(db))
+    };
+
   }
 
   /**
@@ -232,6 +263,27 @@ component output="false" {
   }
 
   // ----
+  private any function _getDatasource(required string dsnname) {
+    // if( !datasourceExists(dsnname) ) {
+    //   return {};
+    // }
+
+    // return _datasource().getDatasources(dsnname);
+    var dbs = createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
+
+    if( !dbs.containsKey(dsnname) ) {
+      return {};
+    }
+
+    var db = dbs[dsnname];
+    if( len(db['password']) ) {
+      try {
+        db['password'] = decrypt(db['password'], generate3DesKey("0yJ!@1$r8p0L@r1$6yJ!@1rj"), "DESede", "Base64");
+      } catch(any e) {}
+    }
+
+    return _formatDatasource(_util().copyStruct(db));
+  }
 
   private any function _handleError(e) {
     if( e.errorCode == 'cfAccessDenied' ) {
@@ -245,9 +297,11 @@ component output="false" {
 
     return _return({
       'success' = false,
-      'reason' = 'unknown',
-      'message' = e.message,
-      'stackTrace' = e.stackTrace
+      'error' = {
+        'reason' = 'unknown',
+        'message' = e.message,
+        'stackTrace' = e.stackTrace
+      }
     });
   }
 
