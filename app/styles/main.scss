@@ -179,7 +179,7 @@ th.small-column {
 }
 
 #links_table {
-	th {
+	td {
 		// text-align: center;
 		&.success {
 			background-color: darken($successBackground, 5%);
