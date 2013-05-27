@@ -15,13 +15,14 @@ define(
         }
 
         for (var keyMap in val) {
-          if (!db.has(keyMap)) {
+          var keyToDb = keyMap.toLowerCase();
+          if (!db.has(keyToDb)) {
             continue;
           }
 
-          if (db.get(keyMap) !== val[keyMap]) {
-            if (!isNaN(val[keyMap]) && !isNaN(db.get(keyMap)) &&
-              parseInt(db.get(keyMap), 10) === parseInt(val[keyMap], 10)
+          if (db.get(keyToDb) !== val[keyMap]) {
+            if (!isNaN(val[keyMap]) && !isNaN(db.get(keyToDb)) &&
+              parseInt(db.get(keyToDb), 10) === parseInt(val[keyMap], 10)
             ) {
               continue;
             }
