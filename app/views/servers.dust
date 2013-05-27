@@ -1,8 +1,9 @@
-
-<a href="#/servers/new" class="btn btn-success btn-add">
-  <i class="icon-plus-sign icon-white "></i>
-  Add new server
-</a>
+<div class="btns">
+  <a href="#/servers/new" class="btn btn-success btn-add">
+    <i class="icon-plus-sign icon-white "></i> 
+    Add new server
+  </a>
+</div>
 
 <table class="table table-bordered">
   <tr>
@@ -17,16 +18,18 @@
         <td><a href="#/servers/{id}">{reference}</a></td>
         <td>{address}</td>
         <td>{comment}</td>
-        <td class="actions">  
-          <a href="#/servers/{id}" class="btn btn-mini">
-            <i class="icon-edit"></i>
-          </a>
-          <a href="#" data-listdbs-id="{id}" class="btn btn-info btn-mini">
-            <i class="icon-ok"></i>
-          </a>
-          <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
-            <i class="icon-trash"></i>
-          </a>
+        <td class="actions">
+          <div class="btns-actions">
+            <a href="#/servers/{id}" class="btn btn-mini">
+              <i class="icon-edit"></i>
+            </a>
+            <a href="#" data-listdbs-id="{id}" class="btn btn-info btn-mini">
+              <i class="icon-ok"></i>
+            </a>
+            <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
+              <i class="icon-trash"></i>
+            </a>
+          </div>
         </td>
       </tr>
     {/servers}

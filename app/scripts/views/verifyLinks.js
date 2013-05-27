@@ -183,7 +183,10 @@ define([
     },
 
     _removeTooltip: function () {
-      this.$el.find('td').removeClass('success error');
+      this.$el.find('td')
+              .removeClass('success error')
+              .removeAttr('data-toggle')
+              .removeAttr('title');
     },
 
     render: function () {

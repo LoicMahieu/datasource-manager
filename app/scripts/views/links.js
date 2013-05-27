@@ -161,6 +161,8 @@ define([
         });
       };
 
+      this._removeTooltip();
+
       async.parallel(superCallTasks, enableApply);
     },
 
@@ -246,6 +248,13 @@ define([
       });
 
       return superCallTasks;
+    },
+
+    _removeTooltip: function () {
+      this.$el.find('td')
+              .removeClass('success error')
+              .removeAttr('data-toggle')
+              .removeAttr('title');
     },
 
     render: function () {

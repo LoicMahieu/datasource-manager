@@ -174,11 +174,13 @@ h5  {
 	}
 }
 
-
+th.small-column {
+	width: 5%;
+}
 
 #links_table {
-	td {
-		text-align: center;
+	th {
+		// text-align: center;
 		&.success {
 			background-color: darken($successBackground, 5%);
 		}
@@ -191,5 +193,18 @@ h5  {
 		&.info {
 			background-color: darken($infoBackground, 5%);
 		}
+	}
+}
+
+.btns {
+	float: right;
+	.btn {
+		margin-left: 5px;
+	}
+}
+
+.btns-actions {
+	.btn {
+		margin-left: 5px;
 	}
 }

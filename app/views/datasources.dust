@@ -1,20 +1,20 @@
-
-<a href="#/datasources/new" class="btn btn-success btn-add">
-  <i class="icon-plus-sign icon-white"></i>
-  Add new Data Source
-</a>
-
-<a href="#/datasources/check" class="btn btn-warning btn-add">
-  <i class="icon-ok icon-white"></i>
-  Check all data sources
-</a>
+<div class="btns">
+  <a href="#/datasources/new" class="btn btn-success btn-add">
+    <i class="icon-plus-sign icon-white"></i> 
+    Add new Data Source
+  </a>
+  <a href="#/datasources/check" class="btn btn-warning btn-add">
+    <i class="icon-ok icon-white"></i> 
+    Check all data sources
+  </a>
+</div>
 
 <table class="table table-bordered">
   <tr>
-    <th></th>
+    <th class="small-column"></th>
     <th>Data Source name</th>
     <th>Comment</th>
-    <th></th>
+    <th>Actions</th>
   </tr>
   {#datasources}
     <tr>
@@ -35,19 +35,21 @@
         </a>
       </td>
       <td>{description}</td>
-      <td class="actions">  
-        <a href="#/datasources/{id}/duplicate" class="btn btn-mini">
-          <i class="icon-retweet"></i>
-        </a>
-        <a href="#/datasources/{id}" class="btn btn-mini">
-          <i class="icon-edit"></i>
-        </a>
-        <!--<a href="#/datasources/valid/{id}" class="btn btn-info btn-mini">
-          <i class="icon-ok"></i>
-        </a>-->
-        <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
-          <i class="icon-trash"></i>
-        </a>
+      <td class="actions">
+        <div class="btns-actions">
+          <a href="#/datasources/{id}/duplicate" class="btn btn-mini">
+            <i class="icon-retweet"></i>
+          </a>
+          <a href="#/datasources/{id}" class="btn btn-mini">
+            <i class="icon-edit"></i>
+          </a>
+          <!--<a href="#/datasources/valid/{id}" class="btn btn-info btn-mini">
+            <i class="icon-ok"></i>
+          </a>-->
+          <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
+            <i class="icon-trash"></i>
+          </a>
+        </div>
       </td>
     </tr>
   {/datasources}

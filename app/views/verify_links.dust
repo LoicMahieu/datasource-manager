@@ -1,10 +1,8 @@
 
 <div id="links_table"></div>
 
-<div class="controls form-inline">
-  <div class="btn-group">
-    <button type="button" class="btn btn-info">
-      <i class="icon-ok-sign icon-white"></i> Verify links
-    </button>
-  </div>
+<div class="controls form-inline btns">
+  <button type="button" class="btn btn-info">
+    <i class="icon-ok-sign icon-white"></i> Verify links
+  </button>
 </div>

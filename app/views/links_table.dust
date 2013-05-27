@@ -2,9 +2,10 @@
 <table class="table table-bordered table-striped table-hover links">
   <thead>
     <tr>
-      <td></td>
+      <th class="small-column"></th>
+      <th>Datasources</th>
       {#servers}
-        <td data-id="{id}">
+        <th data-id="{id}">
           {reference}
           &nbsp;
           <div class="btn-group">
@@ -25,14 +26,14 @@
                 </a>
             </ul>
           </div>
-        </td>
+        </th>
       {/servers}
     </tr>
   </thead>
   <tbody>
     {#datasources}
       <tr>
-        <th>
+        <td>
           <div class="btn-group">
             {#error}
               <a class="btn btn-mini btn-{level}" data-toggle="tooltip" title="{message}">
@@ -61,13 +62,15 @@
               </li>
               <li>
                 <a href="#/datasources/check">
-                  <i class="icon-ok"></i> Check this datasource
+                  <i class="icon-ok"></i> Check datasources
                 </a>
               </li>
               
             </ul>
           </div>
-          &nbsp;{name}
+        </td>
+        <th>
+          {name}
         </th>
         {#checked}
           <td>
