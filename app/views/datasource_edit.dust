@@ -195,7 +195,7 @@
 
         </div><!-- end advanced -->
 
-        <div class="controls form-inline">
+        <div class="controls form-inline btns-actions">
           <button type="submit" class="btn btn-success">
             {#edit}
               <i class="icon-edit icon-white"></i>

@@ -39,7 +39,7 @@
          </div>
        </div>
                 
-        <div class="controls">
+        <div class="controls btns-actions">
           <button type="submit" class="btn btn-primary">Save</button>
           <button type="reset" class="btn btn-danger">reset</button>
           <a href="#/servers" class="btn">Cancel</a>
