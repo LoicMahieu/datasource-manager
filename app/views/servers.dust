@@ -14,7 +14,11 @@
   </tr>
   {?servers}
     {#servers}
-      <tr>
+      {@if cond=" '{disabled}' == 'true' || '{disabled}' == '1'"}
+        <tr class="error">
+      {:else}
+        <tr>
+      {/if}
         <td>
           <a href="#/servers/{id}">{reference} {disable}</a>
         </td>
