@@ -8,7 +8,7 @@ define([
   'rdust!../../views/links_table',
   '../models/datasourcesCollection',
   '../models/serversCollection',
-  '../lib/cfagent',
+  '../lib/cfagent'
 ], function (async, _, $, View, BtnSwitch, template, templateTable, datasources, servers, CFAgent, undefined) {
   'use strict';
 
