@@ -34,22 +34,11 @@ define([
     },
 
     checkColumn: function (e) {
-      var index = $(e.currentTarget).data('id'),
-          $inputs = $();
+      var serverid = $(e.currentTarget).data('id');
 
-      this.$el.find('tbody tr').each(function () {
-        $(this)
-          .find('td:eq(' + (index <= 0 ? 0 : index - 1) + ')')
-          .find('input:not(:disabled)')
-          .each(function () {
-            $inputs = $inputs.add(this);
-          });
-      });
+      var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]');
 
-      var checked = $inputs.filter('[checked]').size(),
-          nonChecked = $inputs.filter(':not([checked])').size();
-
-      if (checked === 0 || checked > nonChecked && checked !== $inputs.size()) {
+      if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
       } else {
         $inputs.removeAttr('checked');
@@ -57,12 +46,11 @@ define([
     },
 
     checkRow: function (e) {
-      var $rowInput = $(e.currentTarget).parents('tr');
-      var $inputs = $rowInput.find('input:not(:disabled)'),
-          checked = $inputs.filter('[checked]').size(),
-          nonChecked = $inputs.filter(':not([checked])').size();
+      var datasourceid = $(e.currentTarget).data('id');
 
-      if (checked === 0 || checked > nonChecked && checked !== $inputs.size()) {
+      var $inputs = this.$el.find('input[data-datasourceid="' + datasourceid + '"]');
+
+      if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
       } else {
         $inputs.removeAttr('checked');
@@ -118,7 +106,6 @@ define([
       this._removeTooltip();
 
       var superCallTasks = this._verify(links, $tds);
-
       async.parallel(
         superCallTasks,
         function () {
@@ -128,7 +115,6 @@ define([
           });
         }
       );
-
     },
 
     _verify: function (links, $tds) {
@@ -136,8 +122,9 @@ define([
       var superCallTasks = [];
 
       $.each(links, function (i, servs) {
-        var cfagent = CFAgent.createFromServer(servs.server),
-            dbs = servs.datasources,
+
+        var cfagent = CFAgent.createFromServer(servs.server);
+        var dbs = servs.datasources,
             callTasks = [];
 
         $.each(dbs, function (j, db) {
@@ -145,6 +132,7 @@ define([
 
           callTasks.push(function (next) {
             view._processDB(cfagent, db, function (res) {
+
               if (!res.length) {
                 view._tooltip($tds[key], 'success', 'success');
               } else {

@@ -38,9 +38,9 @@ define(
 
 
     var verify = function (cfagent, db, callback) {
+      var ret = [];
       var dbName = db.get('name');
       var call = cfagent.getDatasource(dbName);
-      var ret = [];
 
       var callFail = function (status) {
         ret.push(status);

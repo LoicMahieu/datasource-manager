@@ -81,7 +81,7 @@ define([
   };
 
   CFAgent.prototype._callAPI = function (method, params, success, error) {
-    return $.ajax({
+    var call = $.ajax({
       dataType: 'jsonp',
       url: this.address,
       data: $.extend({
@@ -90,8 +90,11 @@ define([
         admin_password: this.password
       }, params),
       success: success,
-      error: error
+      error: error,
+      timeout : 10000
     });
+
+    return call;
   };
 
   return CFAgent;
