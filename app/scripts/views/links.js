@@ -58,7 +58,7 @@ define([
     checkColumn: function (e) {
       var serverid = $(e.currentTarget).data('id');
 
-      var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]');
+      var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]:not(:disabled)');
 
       if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
@@ -70,7 +70,7 @@ define([
     checkRow: function (e) {
       var datasourceid = $(e.currentTarget).data('id');
 
-      var $inputs = this.$el.find('input[data-datasourceid="' + datasourceid + '"]');
+      var $inputs = this.$el.find('input[data-datasourceid="' + datasourceid + '"]:not(:disabled)');
 
       if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
@@ -298,7 +298,7 @@ define([
           data.checked.push({
             check: serv.hasDatasource(db),
             serverId: serv.get('id'),
-            error: valid.length ? true : undefined
+            error: (valid.length || serv.get('disabled')) ? true : undefined
           });
         });
 

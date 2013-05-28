@@ -13,7 +13,8 @@ define([
     urlRoot: ns.apiPath + '/servers',
 
     defaults: {
-      datasourceIds: []
+      datasourceIds: [],
+      disabled: false
     },
 
     initialize: function () {

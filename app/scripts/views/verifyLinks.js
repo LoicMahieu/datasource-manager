@@ -219,7 +219,8 @@ define([
         servers.each(function (serv) {
           data.checked.push({
             check: serv.hasDatasource(db),
-            serverId: serv.get('id')
+            serverId: serv.get('id'),
+            error: (serv.get('disabled')) ? true : undefined
           });
         });
 

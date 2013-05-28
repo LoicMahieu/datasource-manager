@@ -6,8 +6,9 @@ define([
   'rdust!../../views/servers',
   '../models/serversCollection',
   './modal/deleteModal',
-  './modal/dbsListModal'
-], function (_, $, Backbone, View, template, servers, DeleteModal, DBSListModal) {
+  './modal/dbsListModal',
+  './modal/disableServerModal'
+], function (_, $, Backbone, View, template, servers, DeleteModal, DBSListModal, DisableModal) {
   'use strict';
 
   var constructor = View;
@@ -17,7 +18,8 @@ define([
 
     events: {
       'click [data-delete-id]': 'deleteServer',
-      'click [data-listdbs-id]': 'listServerDBs'
+      'click [data-listdbs-id]': 'listServerDBs',
+      'click [data-disable-id]': 'disableEnableServer'
     },
 
     initialize: function () {
@@ -37,6 +39,27 @@ define([
       });
 
       return this;
+    },
+
+    disableEnableServer: function (e) {
+      var server = servers.get($(e.currentTarget).attr('data-disable-id'));
+      if (!server) {
+        return;
+      }
+      console.log(server.get('disabled'));
+
+      var modal = new DisableModal({
+        okText: server.get('disabled') ? 'Disable' : 'Enable',
+        title: server.get('reference')
+      });
+
+      modal.on('ok', function () {
+        server.set('disabled', !server.get('disabled'));
+        server.save();
+      });
+
+      modal.open();
+
     },
 
     deleteServer: function (e) {

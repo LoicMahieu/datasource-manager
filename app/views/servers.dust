@@ -15,7 +15,9 @@
   {?servers}
     {#servers}
       <tr>
-        <td><a href="#/servers/{id}">{reference}</a></td>
+        <td>
+          <a href="#/servers/{id}">{reference} {disable}</a>
+        </td>
         <td>{address}</td>
         <td>{comment}</td>
         <td class="actions">
@@ -25,6 +27,13 @@
             </a>
             <a href="#" data-listdbs-id="{id}" class="btn btn-info btn-mini">
               <i class="icon-ok"></i>
+            </a>
+            <a href="#" data-disable-id="{id}" class="btn btn-warning btn-mini">
+              {@if cond=" '{disabled}' == 'true' || '{disabled}' == '1'"}
+                <i class=" icon-plus-sign"></i>
+              {:else}
+                <i class=" icon-minus-sign"></i>
+              {/if}
             </a>
             <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
               <i class="icon-trash"></i>
