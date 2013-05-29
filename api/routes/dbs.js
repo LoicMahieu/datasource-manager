@@ -7,24 +7,26 @@ var formatRows = function (rows) {
   return rows;
 };
 var formatRow = function (row) {
-  row.pooling = row.pooling === '1';
-
-  row.disable = row.disable === '1';
-  row.enable_clob = row.enable_clob === '1';
-  row.enable_blob = row.enable_blob === '1';
-
-  row.disable_autogenkeys = row.disable_autogenkeys === '1';
-
-  row.alter = row.alter === '1';
-  row.grant = row.grant === '1';
-  row.update = row.update === '1';
-  row.delete = row.delete === '1';
-  row.create = row.create === '1';
-  row.storedproc = row.storedproc === '1';
-  row.insert = row.insert === '1';
-  row.drop = row.drop === '1';
-  row.revoke = row.revoke === '1';
-  row.select = row.select === '1';
+  ([
+    'pooling',
+    'disable',
+    'enable_clob',
+    'enable_blob',
+    'enablemaxconnections',
+    'disable_autogenkeys',
+    'alter',
+    'grant',
+    'update',
+    'delete',
+    'create',
+    'storedproc',
+    'insert',
+    'drop',
+    'revoke',
+    'select'
+    ]).forEach(function (prop) {
+      row[prop] = row[prop] === 1;
+  });
 };
 
 module.exports = function(ns, app) {

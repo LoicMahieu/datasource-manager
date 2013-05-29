@@ -97,19 +97,11 @@ define([
     _toggleOn: function () {
       var view = this;
       this.$el.find('input:not(:checked)').attr('disabled', 'true');
-      
-      var servs = _.filter(servers.toJSON(), function (s) {
-        if (s.disabled === true ||
-          s.disabled === 'true' ||
-          s.disabled === 1)
-        {
-          return true;
-        }
-        return false;
-      });
+
+      var servs = servers.where({disabled: 1});
 
       $.each(servs, function (i, serv) {
-        view.$el.find('input[data-serverid="' + serv.id + '"]')
+        view.$el.find('input[data-serverid="' + serv.get('id') + '"]')
                 .attr('disabled', 'true')
                 .removeAttr('checked');
       });

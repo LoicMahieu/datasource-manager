@@ -46,7 +46,6 @@ define([
       if (!server) {
         return;
       }
-      console.log(server.get('disabled'));
 
       var modal = new DisableModal({
         okText: server.get('disabled') ? 'Disable' : 'Enable',
@@ -54,7 +53,11 @@ define([
       });
 
       modal.on('ok', function () {
-        server.set('disabled', !server.get('disabled'));
+        if (server.get('disabled') === 1) {
+          server.set('disabled', 0);
+        } else {
+          server.set('disabled', 1);
+        }
         server.save();
       });
 

@@ -21,6 +21,7 @@ define([
     render: function (id, action) {
       var view = this;
       var datasource = this.model = datasources.get(id) || new datasources.model();
+
       var data = {
         datasource: (datasource ? datasource.toJSON() : {}),
         edit: typeof datasource !== 'undefined'
@@ -63,36 +64,36 @@ define([
 
         args: data.args,
 
-        enablemaxconnections: data.enablemaxconnections === 'true',
+        enablemaxconnections: (data.enablemaxconnections === 'true'),
         maxconnections: data.maxconnections,
 
-        pooling: data.pooling === 'true',
+        pooling: (data.pooling === 'true'),
         
         timeout: data.timeout,
         interval: data.interval,
 
-        disable: data.disable === 'true',
+        disable: (data.disable === 'true'),
 
         login_timeout: data.login_timeout,
 
-        enable_clob: data.enable_clob === 'true',
-        enable_blob: data.enable_blob === 'true',
+        enable_clob: (data.enable_clob === 'true'),
+        enable_blob: (data.enable_blob === 'true'),
 
         buffer: data.buffer,
         blob_buffer: data.blob_buffer,
 
-        disable_autogenkeys: data.disable_autogenkeys === 'true',
+        disable_autogenkeys: (data.disable_autogenkeys === 'true'),
 
-        alter: data.alter === 'true',
-        grant: data.grant === 'true',
-        update: data.update === 'true',
-        delete: data.delete === 'true',
-        create: data.create === 'true',
-        storedproc: data.storedproc === 'true',
-        insert: data.insert === 'true',
-        drop: data.drop === 'true',
-        revoke: data.revoke === 'true',
-        select: data.select === 'true',
+        alter: (data.alter === 'true'),
+        grant: (data.grant === 'true'),
+        update: (data.update === 'true'),
+        delete: (data.delete === 'true'),
+        create: (data.create === 'true'),
+        storedproc: (data.storedproc === 'true'),
+        insert: (data.insert === 'true'),
+        drop: (data.drop === 'true'),
+        revoke: (data.revoke === 'true'),
+        select: (data.select === 'true'),
 
         version: data.version,
 

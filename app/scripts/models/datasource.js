@@ -28,8 +28,8 @@ define([
       delete: true,
       disable: false,
       enablemaxconnections: false,
-      maxconnections: 0,
-      version: 1,
+      maxconnections: false,
+      version: true,
       validationQuery: 'SELECT 1 = 1'
     },
 

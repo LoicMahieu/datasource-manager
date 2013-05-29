@@ -14,7 +14,7 @@ define([
 
     defaults: {
       datasourceIds: [],
-      disabled: false
+      disabled: 0
     },
 
     initialize: function () {
