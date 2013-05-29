@@ -242,6 +242,8 @@ component output="false" {
       }
 
       dbs[i] = _formatDatasource(dbs[i]);
+      dbs[i]['interval'] = dbs[i]['interval'] / 60;
+      dbs[i]['timeout'] = dbs[i]['timeout'] / 60;
     }
 
     return _structToLCase( dbs );
@@ -264,11 +266,6 @@ component output="false" {
 
   // ----
   private any function _getDatasource(required string dsnname) {
-    // if( !datasourceExists(dsnname) ) {
-    //   return {};
-    // }
-
-    // return _datasource().getDatasources(dsnname);
     var dbs = createobject("java","coldfusion.server.ServiceFactory").getDatasourceService().getDatasources();
 
     if( !dbs.containsKey(dsnname) ) {
@@ -390,7 +387,7 @@ component output="false" {
       desc.message = structKeyExists(desc, 'message') ? desc.message : '';
       desc.version = structKeyExists(desc, 'version') ? desc.version : 0;
     }
-    
+
     db['description'] = desc.message;
     db['version'] = desc.version;
 

@@ -63,7 +63,6 @@ define([
           data.notFound.push(db.get('name'));
         }
       });
-      console.log(data.notFound);
 
       data.dbs = _.sortBy(data.dbs, function (db) {
         return db.name;
@@ -93,12 +92,12 @@ define([
         description: db.description,
 
         args: db.urlmap.args,
-        maxconnections: db.urlmap.maxconnections,
+        maxconnections: db.urlmap.maxconnections ? parseInt(db.urlmap.maxconnections, 10) : 0,
 
-        login_timeout: db.login_timeout,
-        interval: db.interval,
-        buffer: db.buffer,
-        blob_buffer: db.blob_buffer,
+        login_timeout: parseInt(db.login_timeout, 10),
+        interval: parseInt(db.interval, 10),
+        buffer: parseInt(db.buffer, 10),
+        blob_buffer: parseInt(db.blob_buffer, 10),
         enable_clob: !db.disable_clob,
         enable_blob: !db.disable_blob,
 
@@ -116,7 +115,7 @@ define([
         select: db.select,
 
         disable: db.disable,
-        timeout: db.timeout,
+        timeout: parseInt(db.timeout, 10),
 
         disable_autogenkeys: db.disable_autogenkeys,
         validationQuery: db.validationquery
