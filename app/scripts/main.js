@@ -40,7 +40,7 @@ require.config({
     'jquery': 'vendor/jquery.min',
     'parsley': 'vendor/parsley.full',
 
-    'bootstrap': 'vendor/bootstrap/bootstrap.min',
+    'bootstrap': 'vendor/bootstrap/bootstrap',
 
     'dust': 'vendor/dust-full-0.6.0',
     'rdust': 'vendor/require-dust',

@@ -59,7 +59,7 @@ define([
     },
 
     applyToolTip: function () {
-      this.$el.find('[data-toggle=tooltip]').tooltip({html: true});
+      this.$el.find('[data-toggle=tooltip]').tooltip({html: true, container: 'body'});
     }
   });
 

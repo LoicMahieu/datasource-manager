@@ -21,7 +21,8 @@ define([
       'click .check-column': 'checkColumn',
       'click .check-row': 'checkRow',
       'click tbody td': 'checkInput',
-      'click button[type="button"]': 'verify'
+      'click .verify': 'verify',
+      'click .check-all': 'checkAll'
     },
 
     initialize: function () {
@@ -33,10 +34,19 @@ define([
       servers.fetch();
     },
 
+    checkAll: function () {
+      var $inputs = this.$el.find(':checkbox:not(:disabled)');
+      if ($inputs.filter('[checked]').length === 0) {
+        $inputs.attr('checked', 'true');
+      } else {
+        $inputs.removeAttr('checked');
+      }
+    },
+
     checkColumn: function (e) {
       var serverid = $(e.currentTarget).data('id');
 
-      var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]');
+      var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]:not(:disabled)');
 
       if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
@@ -48,7 +58,7 @@ define([
     checkRow: function (e) {
       var datasourceid = $(e.currentTarget).data('id');
 
-      var $inputs = this.$el.find('input[data-datasourceid="' + datasourceid + '"]');
+      var $inputs = this.$el.find('input[data-datasourceid="' + datasourceid + '"]:not(:disabled)');
 
       if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
@@ -113,6 +123,7 @@ define([
           $.each($tds, function () {
             this.children().removeAttr('disabled');
           });
+          view.applyToolTip();
         }
       );
     },

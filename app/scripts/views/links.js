@@ -24,7 +24,8 @@ define([
       'click button[type="submit"]': 'save',
       'btn-switch.activate .btn-switch': '_toggleOn',
       'btn-switch.desactivate .btn-switch': '_toggleOff',
-      'click #apply-rules': 'applyRules'
+      'click #apply-rules': 'applyRules',
+      'click .check-all': 'checkAll'
     },
 
     initialize: function () {
@@ -53,6 +54,15 @@ define([
       _.uniq(saves).forEach(function (server) {
         server.save();
       });
+    },
+
+    checkAll: function () {
+      var $inputs = this.$el.find(':checkbox:not(:disabled)');
+      if ($inputs.filter('[checked]').length === 0) {
+        $inputs.attr('checked', 'true');
+      } else {
+        $inputs.removeAttr('checked');
+      }
     },
 
     checkColumn: function (e) {
@@ -157,6 +167,7 @@ define([
         $.each($tds, function () {
           this.children().removeAttr('disabled');
         });
+        view.applyToolTip();
       };
 
       this._removeTooltip();

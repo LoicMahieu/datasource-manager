@@ -1,12 +1,16 @@
-
-<div id="switch" class="control-group btns">
-  <div class="btn-switch btn-switch-right">
-    <button type="button" class="btn" data-text="Apply">
-      <i class="icon-ok"></i> 
-    </button>
-    <button type="button" class="btn" data-text="Save">
-      <i class="icon-plus"></i> 
-    </button>
+<div class="controls form-inline">
+  <button type="button" class="btn btn-info check-all">
+    <i class="icon-ok-sign icon-white"></i> Check/uncheck all checkboxes
+  </button>
+  <div id="switch" class="control-group btns">
+    <div class="btn-switch btn-switch-right">
+      <button type="button" class="btn" data-text="Apply">
+        <i class="icon-ok"></i> 
+      </button>
+      <button type="button" class="btn" data-text="Save">
+        <i class="icon-plus"></i> 
+      </button>
+    </div>
   </div>
 </div>
 

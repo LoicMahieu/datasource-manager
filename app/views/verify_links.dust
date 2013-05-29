@@ -1,8 +1,13 @@
+<div class="controls form-horizontal control-group btns">
+  <button type="button" class="btn btn-info check-all">
+    <i class="icon-ok-sign icon-white"></i> Check/uncheck all checkboxes
+  </button>
+</div>
 
 <div id="links_table"></div>
 
 <div class="controls form-inline btns">
-  <button type="button" class="btn btn-info">
+  <button type="button" class="btn btn-info verify">
     <i class="icon-ok-sign icon-white"></i> Verify links
   </button>
 </div>
