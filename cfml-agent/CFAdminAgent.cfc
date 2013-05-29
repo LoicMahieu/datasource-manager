@@ -141,6 +141,9 @@ component output="false" {
       return res;
     }
 
+    timeout = timeout * 60;
+    interval = interval * 60;
+    login_timeout = login_timeout * 60;
 
     var ds = _getDatasource(name);
     if( !isNull(ds) && !structIsEmpty(ds) ) {
@@ -242,8 +245,6 @@ component output="false" {
       }
 
       dbs[i] = _formatDatasource(dbs[i]);
-      dbs[i]['interval'] = dbs[i]['interval'] / 60;
-      dbs[i]['timeout'] = dbs[i]['timeout'] / 60;
     }
 
     return _structToLCase( dbs );
@@ -390,6 +391,8 @@ component output="false" {
 
     db['description'] = desc.message;
     db['version'] = desc.version;
+    db['interval'] = db['interval'] / 60;
+    db['timeout'] = db['timeout'] / 60;
 
     return db;
   }
