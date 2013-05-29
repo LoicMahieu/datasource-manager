@@ -20,7 +20,7 @@
         <tr>
       {/if}
         <td>
-          <a href="#/servers/{id}">{reference} {disabled}</a>
+          <a href="#/servers/{id}">{reference}</a>
         </td>
         <td>{address}</td>
         <td>{comment}</td>
