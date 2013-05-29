@@ -175,7 +175,7 @@ h5  {
 }
 
 th.small-column {
-	width: 5%;
+	width: 10%;
 }
 
 #links_table {
@@ -194,6 +194,10 @@ th.small-column {
 			background-color: darken($infoBackground, 5%);
 		}
 	}
+}
+
+.tooltip-inner {
+	max-width: none;
 }
 
 .btns {

@@ -21,8 +21,6 @@ define(
           }
 
           if (db.get(keyToDb) !== val[keyMap]) {
-            console.log(val[keyMap]);
-            console.log(db.get(keyToDb));
             if (!isNaN(val[keyMap]) && !isNaN(db.get(keyToDb)) &&
               parseInt(db.get(keyToDb), 10) === parseInt(val[keyMap], 10)
             ) {

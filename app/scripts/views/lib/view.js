@@ -22,6 +22,7 @@ define([
       if (this.template) {
         this.template.render({}, function (err, output) {
           $(view.el).html(output);
+          view.applyToolTip();
           view.rendered = true;
         });
       }
@@ -31,7 +32,7 @@ define([
 
     hide: function (cb) {
       if (!this.hidden) {
-        this.$el.hide();
+        this.$el.hide();  
         this.hidden = true;
       }
 
@@ -55,6 +56,10 @@ define([
       this.trigger('show');
 
       return this;
+    },
+
+    applyToolTip: function () {
+      this.$el.find('[data-toggle=tooltip]').tooltip({html: true});
     }
   });
 

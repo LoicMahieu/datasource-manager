@@ -44,7 +44,7 @@ define([
 
           error.message = valid.map(function (err) {
             return err.message;
-          }).join('\n');
+          }).join('<br>');
 
           data.error = error;
         }
@@ -58,6 +58,7 @@ define([
         var $el = $(view.el);
 
         $el.html(output);
+        view.applyToolTip();
         view.rendered = true;
       });
 

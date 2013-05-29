@@ -258,7 +258,10 @@ define([
     render: function () {
       var rendered = this.rendered;
 
+
       proto.render.apply(this, arguments);
+
+      this.applyToolTip();
 
 
       if (!rendered) {
@@ -298,7 +301,7 @@ define([
 
           error.message = valid.map(function (err) {
             return err.message;
-          }).join('\n');
+          }).join('<br>');
 
           data.error = error;
         }
@@ -322,6 +325,7 @@ define([
 
       templateTable.render(data, function (err, output) {
         view.$el.find('#links_table').html(output);
+        view.applyToolTip();
       });
 
     }
