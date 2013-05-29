@@ -14,7 +14,7 @@
   </tr>
   {?servers}
     {#servers}
-      {@if cond="'{disabled}' == '1'"}
+      {@if cond="'{disabled}' == 'true'"}
         <tr class="error">
       {:else}
         <tr>

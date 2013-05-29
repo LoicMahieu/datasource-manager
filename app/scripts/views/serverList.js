@@ -53,11 +53,7 @@ define([
       });
 
       modal.on('ok', function () {
-        if (server.get('disabled') === 1) {
-          server.set('disabled', 0);
-        } else {
-          server.set('disabled', 1);
-        }
+        server.set('disabled', !server.get('disabled'));
         server.save();
       });
 

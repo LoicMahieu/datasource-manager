@@ -98,7 +98,7 @@ define([
       var view = this;
       this.$el.find('input:not(:checked)').attr('disabled', 'true');
 
-      var servs = servers.where({disabled: 1});
+      var servs = servers.where({disabled: true});
 
       $.each(servs, function (i, serv) {
         view.$el.find('input[data-serverid="' + serv.get('id') + '"]')
