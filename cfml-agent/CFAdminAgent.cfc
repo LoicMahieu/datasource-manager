@@ -7,6 +7,7 @@
 component output="false" {
 
   variables.logged = false;
+  variables.keyConvertion = ['login_timeout', 'timeout', 'interval'];
 
   remote any function handleRequest(required string api_method) {
 
@@ -141,9 +142,9 @@ component output="false" {
       return res;
     }
 
-    timeout = timeout * 60;
-    interval = interval * 60;
-    login_timeout = login_timeout * 60;
+    for( var val in variables.keyConvertion ) {
+      arguments[val] = arguments[val] * 60;
+    }
 
     var ds = _getDatasource(name);
     if( !isNull(ds) && !structIsEmpty(ds) ) {
@@ -391,8 +392,10 @@ component output="false" {
 
     db['description'] = desc.message;
     db['version'] = desc.version;
-    db['interval'] = db['interval'] / 60;
-    db['timeout'] = db['timeout'] / 60;
+
+    for( var val in variables.keyConvertion ) {
+      db[val] = db[val] / 60;
+    }
 
     return db;
   }
