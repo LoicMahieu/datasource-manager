@@ -44,7 +44,8 @@ define([
 
       var saves = [];
 
-      this.$el.find('input[type=checkbox]').each(function () {
+      this.$el.find('input[type=checkbox]:not(:disabled)').each(function () {
+        console.log(this);
         var $input = $(this),
             checked = $input.is(':checked'),
             server = servers.get($input.data('serverid')),
@@ -65,7 +66,7 @@ define([
         return;
       }
 
-      var $inputs = this.$el.find(':checkbox:not(:disabled)');
+      var $inputs = this.$el.find('#links_table').find(':checkbox:not(:disabled)');
       if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
       } else {
@@ -113,9 +114,9 @@ define([
     },
 
     _toggleOn: function () {
-      this.$el.find('.check-all').removeAttr('disabled');
       var view = this;
-      this.$el.find('input:not(:checked)').removeAttr('disabled', 'true');
+      this.$el.find('input:not(:checked)').attr('disabled', 'true');
+      this.$el.find('.check-all').removeAttr('disabled');
 
       var servs = servers.where({disabled: true});
 
@@ -127,6 +128,8 @@ define([
 
       this.$el.find('#apply-rules').removeClass('disabled');
       this.$el.find('#save-links').addClass('disabled');
+      this.$el.find('.to-hide').show();
+      this.$checkForce.removeAttr('disabled');
     },
 
     _toggleOff: function () {
@@ -145,6 +148,7 @@ define([
 
       this.$progressBarContainer.empty();
       this.$applyRulesButton.addClass('disabled');
+      this.$checkForce.attr('disabled', 'true');
 
       var view = this,
           links = {},
@@ -152,7 +156,7 @@ define([
 
       var $tds = {};
 
-      this.$el.find('input:checked').each(function () {
+      this.$el.find('#links_table input:checked').each(function () {
         var servId = $(this).data('serverid'),
             dsId = $(this).data('datasourceid'),
             serv = servers.get(servId),
@@ -171,12 +175,15 @@ define([
         $(this).attr('disabled', 'disabled');
       });
 
-      var superCallTasks = this._processLinks(links, $tds, this.$progressBarContainer);
+      var superCallTasks = this._processLinks(links, $tds);
       var enableApply = function () {
         view.$applyRulesButton.removeClass('disabled');
+        view.$checkForce.removeAttr('disabled');
+
         $.each($tds, function () {
           this.children().removeAttr('disabled');
         });
+
         view.applyToolTip();
       };
 
@@ -204,12 +211,13 @@ define([
 
         $.each(dbs, function (j, db) {
           var doCall = function (next) {
-            var call = cfagent.setDatasource(db);
+            var force = view.$checkForce.parents('label').find(':input:checked').length ? true : false;
+            var call = cfagent.setDatasource(db, force);
             var key = db.get('id') + '-' + servs.server.get('id');
 
             var tooltip = function (text) {
               $tds[key].attr('data-toggle', 'tooltip')
-                  .attr('title', text);
+                  .attr('data-original-title', text);
             };
 
             var callFail = function (status) {
@@ -271,9 +279,9 @@ define([
 
     _removeTooltip: function () {
       this.$el.find('td')
-              .removeClass('success error')
+              .removeClass()
               .removeAttr('data-toggle')
-              .removeAttr('title');
+              .removeAttr('data-original-title');
     },
 
     render: function () {
@@ -288,6 +296,7 @@ define([
       if (!rendered) {
         this.$progressBarContainer = this.$el.find('#progressbars-container');
         this.$applyRulesButton = this.$el.find('#apply-rules');
+        this.$checkForce = this.$el.find('#check-force');
 
         this.$btnSwitch = this.$el.find('.btn-switch');
         this.$btnSwitch.btnSwitch();
@@ -348,6 +357,9 @@ define([
         view.$el.find('#links_table').html(output);
         view.applyToolTip();
       });
+
+      this.$el.find('.to-hide').hide();
+      this.$checkForce.attr('disabled', 'true');
 
     }
   });

@@ -18,6 +18,9 @@
 <div id="links_table"></div>
 
 <div class="controls form-inline btns">
+  <label for="check-force" class="checkbox to-hide">
+    <input type="checkbox" id="check-force" name="force" class="checkbox" disabled="true"/> Force apply 
+  </label>
   <a id="apply-rules" class="btn btn-danger disabled">
     <i class="icon-ok-sign icon-white"></i> Apply rules
   </a>

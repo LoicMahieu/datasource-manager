@@ -26,7 +26,7 @@ define([
     return this._callAPI('setMySQL5', db, success, error);
   };
 
-  CFAgent.prototype.setDatasource = function (db, success, error) {
+  CFAgent.prototype.setDatasource = function (db, force, success, error) {
     var data = {
       name: db.get('name'),
       database: db.get('database'),
@@ -58,7 +58,8 @@ define([
       revoke: db.get('revoke'),
       select: db.get('select'),
       validationquery: db.get('validationQuery'),
-      version: db.get('version')
+      version: db.get('version'),
+      force: force
     };
 
     if (db.get('maxconnections')) {

@@ -130,7 +130,8 @@ component output="false" {
     boolean storedproc,                   // Allow SQL stored procedure calls.
     boolean delete,                       // Allow SQL DELETE statements.
     string validationQuery,               // Validation Query used by Coldfusion for validating the connection state when removing connections from the connection pool.
-    numeric version = 1                   // version of the datasource
+    numeric version = 1,                  // version of the datasource
+    boolean force = false
   ) returnformat="json" {
     var res = {
       'success' = false,
@@ -148,7 +149,7 @@ component output="false" {
 
     var ds = _getDatasource(name);
     if( !isNull(ds) && !structIsEmpty(ds) ) {
-      if( ds.version == version ) {
+      if( ds.version == version && !force) {
         if( !verifyDsn(name) ) {
           return {
             'success' = false,
@@ -165,6 +166,8 @@ component output="false" {
 
       deleteDatasource(name);
     }
+
+    structDelete(arguments, 'force');
 
     _datasource().setMySQL5(argumentCollection = arguments);
 

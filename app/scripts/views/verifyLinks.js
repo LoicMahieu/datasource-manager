@@ -177,15 +177,15 @@ define([
       }
 
       $el.attr('data-toggle', 'tooltip')
-         .attr('title', text)
+         .attr('data-original-title', text)
          .addClass(type);
     },
 
     _removeTooltip: function () {
       this.$el.find('td')
-              .removeClass('success error')
+              .removeClass()
               .removeAttr('data-toggle')
-              .removeAttr('title');
+              .removeAttr('data-original-title');
     },
 
     render: function () {
