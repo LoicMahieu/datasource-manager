@@ -32,7 +32,7 @@ define([
 
     hide: function (cb) {
       if (!this.hidden) {
-        this.$el.hide();  
+        this.$el.hide();
         this.hidden = true;
       }
 
