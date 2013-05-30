@@ -7,7 +7,7 @@
 component output="false" {
 
   variables.logged = false;
-  variables.keyConvertion = ['login_timeout', 'timeout', 'interval'];
+  variables.keyConvertion = ['timeout', 'interval'];
 
   remote any function handleRequest(required string api_method) {
 
