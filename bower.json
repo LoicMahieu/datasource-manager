@@ -1,0 +1,14 @@
+{
+  "name": "igloo-cfadmin",
+  "version": "0.0.0",
+  "dependencies": {
+    "backbone": "~1.0.0",
+    "dustjs-linkedin": "~1.2.3",
+    "jquery": "~2.0.1",
+    "modernizr": "~2.6.2",
+    "requirejs": "~2.1.6",
+    "sass-bootstrap": "~2.3.2",
+    "underscore": "~1.4.4"
+  },
+  "devDependencies": {}
+}
