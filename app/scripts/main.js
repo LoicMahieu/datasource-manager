@@ -37,7 +37,7 @@ require.config({
 
     'async': 'vendor/async',
 
-    'jquery': 'vendor/jquery.min',
+    'jquery': '../components/jquery/jquery',
     'parsley': 'vendor/parsley.full',
 
     'bootstrap': 'vendor/bootstrap/bootstrap',

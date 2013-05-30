@@ -85,7 +85,7 @@ define([
         name: db.name,
         database: db.urlmap.database,
         host: db.urlmap.host,
-        port: db.urlmap.port,
+        port: '' + parseInt(db.urlmap.port, 10),
         username: db.username,
         password: db.password,
 

@@ -14,11 +14,11 @@
   </tr>
   {?servers}
     {#servers}
-      {@if cond="'{disabled}' == 'true'"}
+      {#disabled}
         <tr class="error">
       {:else}
         <tr>
-      {/if}
+      {/disabled}
         <td>
           <a href="#/servers/{id}">{reference}</a>
         </td>
@@ -33,11 +33,11 @@
               <i class="icon-ok"></i>
             </a>
             <a href="#" data-disable-id="{id}" class="btn btn-warning btn-mini">
-              {@if cond=" '{disabled}' == 'true' || '{disabled}' == '1'"}
+              {#disabled}
                 <i class=" icon-plus-sign"></i>
               {:else}
                 <i class=" icon-minus-sign"></i>
-              {/if}
+              {/disabled}
             </a>
             <a href="#" data-delete-id="{id}" class="btn btn-danger btn-mini">
               <i class="icon-trash"></i>

@@ -67,10 +67,10 @@ define([
       }
 
       var $inputs = this.$el.find('#links_table').find(':checkbox:not(:disabled)');
-      if ($inputs.filter('[checked]').length === 0) {
-        $inputs.attr('checked', 'true');
+      if ($inputs.filter(':checked').length === 0) {
+        $inputs.prop('checked', true);
       } else {
-        $inputs.removeAttr('checked');
+        $inputs.prop('checked', false);
       }
     },
 
@@ -79,10 +79,13 @@ define([
 
       var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]:not(:disabled)');
 
-      if ($inputs.filter('[checked]').length === 0) {
-        $inputs.attr('checked', 'true');
+      console.log($inputs.length);
+
+      if ($inputs.filter(':checked').length === 0) {
+        $inputs.prop('checked', true);
       } else {
-        $inputs.removeAttr('checked');
+        console.log('ici');
+        $inputs.prop('checked', false);
       }
     },
 
@@ -91,10 +94,10 @@ define([
 
       var $inputs = this.$el.find('input[data-datasourceid="' + datasourceid + '"]:not(:disabled)');
 
-      if ($inputs.filter('[checked]').length === 0) {
-        $inputs.attr('checked', 'true');
+      if ($inputs.filter(':checked').length === 0) {
+        $inputs.prop('checked', true);
       } else {
-        $inputs.removeAttr('checked');
+        $inputs.prop('checked', false);
       }
     },
 
@@ -107,9 +110,9 @@ define([
         return;
       }
       if (!$input.is(':checked')) {
-        $input.attr('checked', 'true');
+        $input.prop('checked', true);
       } else {
-        $input.removeAttr('checked');
+        $input.prop('checked', false);
       }
     },
 
