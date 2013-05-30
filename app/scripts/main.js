@@ -42,7 +42,7 @@ require.config({
 
     'bootstrap': 'vendor/bootstrap/bootstrap',
 
-    'dust': 'vendor/dust-full-0.6.0',
+    'dust': '../components/dustjs-linkedin/dist/dust-full-1.2.2',
     'rdust': 'vendor/require-dust',
 
     'underscore': '../components/underscore/underscore',
