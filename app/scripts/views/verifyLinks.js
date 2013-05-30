@@ -36,6 +36,7 @@ define([
 
     checkAll: function () {
       var $inputs = this.$el.find(':checkbox:not(:disabled)');
+
       if ($inputs.filter(':checked').length === 0) {
         $inputs.prop('checked', true);
       } else {

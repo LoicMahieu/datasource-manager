@@ -79,12 +79,9 @@ define([
 
       var $inputs = this.$el.find('input[data-serverid="' + serverid + '"]:not(:disabled)');
 
-      console.log($inputs.length);
-
       if ($inputs.filter(':checked').length === 0) {
         $inputs.prop('checked', true);
       } else {
-        console.log('ici');
         $inputs.prop('checked', false);
       }
     },
