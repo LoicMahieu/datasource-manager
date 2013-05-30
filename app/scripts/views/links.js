@@ -38,6 +38,10 @@ define([
     },
 
     save: function () {
+      if (this.$btnSwitch.hasClassLeft()) {
+        return;
+      }
+
       var saves = [];
 
       this.$el.find('input[type=checkbox]').each(function () {
@@ -56,7 +60,11 @@ define([
       });
     },
 
-    checkAll: function () {
+    checkAll: function (e) {
+      if (!this.$btnSwitch.hasClassLeft() || $(e.currentTarget).attr('disabled')) {
+        return;
+      }
+
       var $inputs = this.$el.find(':checkbox:not(:disabled)');
       if ($inputs.filter('[checked]').length === 0) {
         $inputs.attr('checked', 'true');
@@ -105,8 +113,9 @@ define([
     },
 
     _toggleOn: function () {
+      this.$el.find('.check-all').removeAttr('disabled');
       var view = this;
-      this.$el.find('input:not(:checked)').attr('disabled', 'true');
+      this.$el.find('input:not(:checked)').removeAttr('disabled', 'true');
 
       var servs = servers.where({disabled: true});
 
@@ -124,6 +133,7 @@ define([
       this._render();
       this.$el.find('#apply-rules').addClass('disabled');
       this.$el.find('#save-links').removeClass('disabled');
+      this.$el.find('.check-all').attr('disabled', 'true');
 
       this.$progressBarContainer.empty();
     },

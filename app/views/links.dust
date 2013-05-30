@@ -1,5 +1,5 @@
 <div class="controls form-inline">
-  <button type="button" class="btn btn-info check-all">
+  <button type="button" class="btn btn-info check-all" disabled="true">
     <i class="icon-ok-sign icon-white"></i> Check/uncheck all checkboxes
   </button>
   <div id="switch" class="control-group btns">
