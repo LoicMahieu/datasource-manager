@@ -29,7 +29,7 @@ define([
       disable: false,
       enablemaxconnections: false,
       maxconnections: false,
-      version: true,
+      version: 1,
       validationQuery: 'SELECT 1 = 1'
     },
 
