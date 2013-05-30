@@ -48,7 +48,7 @@ define([
       }
 
       var modal = new DisableModal({
-        okText: server.get('disabled') ? 'Disable' : 'Enable',
+        okText: server.get('disabled') ? 'Enable' : 'Disable',
         title: server.get('reference')
       });
 
