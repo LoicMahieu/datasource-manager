@@ -359,7 +359,7 @@ define([
       });
 
       this.$el.find('.to-hide').hide();
-      this.$checkForce.attr('disabled', 'true');
+      this.$checkForce.prop('checked', false);
 
     }
   });
