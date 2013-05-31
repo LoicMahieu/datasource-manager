@@ -69,7 +69,7 @@ define([
     },
 
     checkInput: function (e) {
-      if ($(e.srcElement).is('input')) {
+      if ($(e.target).is('input')) {
         return;
       }
       var $input = $(e.currentTarget).find('input');
