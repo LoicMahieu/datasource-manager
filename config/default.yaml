@@ -1,0 +1,6 @@
+
+db:
+  host:       'localhost'
+  database:   'coldfusion_datasources' 
+  user:       'cfdatasources'
+  password:   ''

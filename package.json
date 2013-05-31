@@ -6,7 +6,8 @@
     "mysql": "~2.0.0-alpha7",
     "async": "~0.2.6",
     "lodash": "~1.0.1",
-    "config": "~0.4.21"
+    "config": "~0.4.25",
+    "yaml": "~0.2.3"
   },
   "devDependencies": {
     "grunt": "0.4.0rc7",
