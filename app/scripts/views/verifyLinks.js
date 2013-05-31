@@ -157,7 +157,7 @@ define([
         });
 
         superCallTasks.push(function (done) {
-          async.parallel(callTasks, done);
+          async.series(callTasks, done);
         });
       });
 
